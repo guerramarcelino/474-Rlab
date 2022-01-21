@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 8 Difference-in-Differences | Econometrics of Policy Evaluation</title>
+  <meta name="description" content="ECON 474 R-lab notes" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 8 Difference-in-Differences | Econometrics of Policy Evaluation" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://guerramarcelino.github.io/Econ474/Rlabs" />
+  
+  <meta property="og:description" content="ECON 474 R-lab notes" />
+  <meta name="github-repo" content="guerramarcelino/474-Rlab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 8 Difference-in-Differences | Econometrics of Policy Evaluation" />
+  
+  <meta name="twitter:description" content="ECON 474 R-lab notes" />
+  
+
+<meta name="author" content="Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu" />
+
+
+<meta name="date" content="2022-01-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fixed-effects.html"/>
+<link rel="next" href="synthetic-control.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ECON 474 @UIUC</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome!</a></li>
+<li class="chapter" data-level="2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html"><i class="fa fa-check"></i><b>2</b> RAND Health Insurance Experiment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#working-with-.rds-files"><i class="fa fa-check"></i><b>2.1</b> Working with .RDS files</a></li>
+<li class="chapter" data-level="2.2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#summarizing-data"><i class="fa fa-check"></i><b>2.2</b> Summarizing data</a></li>
+<li class="chapter" data-level="2.3" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#checking-for-balance"><i class="fa fa-check"></i><b>2.3</b> Checking for Balance</a></li>
+<li class="chapter" data-level="2.4" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#results-of-the-experiment"><i class="fa fa-check"></i><b>2.4</b> Results of the Experiment</a></li>
+<li class="chapter" data-level="2.5" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#equivalence-of-differences-in-means-and-regression"><i class="fa fa-check"></i><b>2.5</b> Equivalence of Differences in Means and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="inference-review.html"><a href="inference-review.html"><i class="fa fa-check"></i><b>3</b> Inference Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference-review.html"><a href="inference-review.html#flipping-coins"><i class="fa fa-check"></i><b>3.1</b> Flipping coins</a></li>
+<li class="chapter" data-level="3.2" data-path="inference-review.html"><a href="inference-review.html#sample-mean"><i class="fa fa-check"></i><b>3.2</b> Sample mean</a></li>
+<li class="chapter" data-level="3.3" data-path="inference-review.html"><a href="inference-review.html#measuring-variability"><i class="fa fa-check"></i><b>3.3</b> Measuring Variability</a></li>
+<li class="chapter" data-level="3.4" data-path="inference-review.html"><a href="inference-review.html#central-limit-theorem-clt"><i class="fa fa-check"></i><b>3.4</b> Central Limit Theorem (CLT)</a></li>
+<li class="chapter" data-level="3.5" data-path="inference-review.html"><a href="inference-review.html#the-t-statistic-and-the-clt"><i class="fa fa-check"></i><b>3.5</b> The t-Statistic and the CLT</a></li>
+<li class="chapter" data-level="3.6" data-path="inference-review.html"><a href="inference-review.html#confidence-interval"><i class="fa fa-check"></i><b>3.6</b> Confidence Interval</a></li>
+<li class="chapter" data-level="3.7" data-path="inference-review.html"><a href="inference-review.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.7</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>4</b> Subclassification and Matching</a></li>
+<li class="chapter" data-level="5" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>5</b> NonLinear Regression</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#generalized-linear-models-glm"><i class="fa fa-check"></i><b>5.1</b> Generalized Linear Models (GLM)</a></li>
+<li class="chapter" data-level="5.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#a-taste-of-machine-learning"><i class="fa fa-check"></i><b>5.2</b> A Taste of Machine Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>6</b> Instrumental Variables</a></li>
+<li class="chapter" data-level="7" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>7</b> Fixed Effects</a></li>
+<li class="chapter" data-level="8" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>8</b> Difference-in-Differences</a></li>
+<li class="chapter" data-level="9" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>9</b> Synthetic Control</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometrics of Policy Evaluation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="difference-in-differences" class="section level1" number="8">
+<h1><span class="header-section-number"> 8</span> Difference-in-Differences</h1>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fixed-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="synthetic-control.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-DinD.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

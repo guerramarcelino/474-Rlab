@@ -1,0 +1,30 @@
+--- 
+title: "Econometrics of Policy Evaluation"
+author: "Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+url: https://guerramarcelino.github.io/Econ474/Rlabs
+description: "ECON 474 R-lab notes" 
+link-citations: yes
+github-repo: guerramarcelino/474-Rlab
+---
+
+```{r setup, include=FALSE}
+  knitr::opts_chunk$set(include = TRUE)  # TRUE for solution; FALSE for questions set
+  knitr::opts_chunk$set(echo = TRUE)
+  knitr::opts_chunk$set(message = FALSE)
+  knitr::opts_chunk$set(warning = FALSE)
+  knitr::opts_chunk$set(fig.height = 6, fig.width = 11, out.width = '100%', fig.align = "center")
+  options(width = 90)
+library(fontawesome)
+```
+
+# Welcome!
+
+These lecture notes cover all the `r fa("r-project", fill = "steelblue")` code used in **ECON 474** - Econometrics of Policy Evaluation - at UIUC. This book complements class materials hosted [here](https://guerramarcelino.github.io/econ474/lectures/).
+
+
+
+

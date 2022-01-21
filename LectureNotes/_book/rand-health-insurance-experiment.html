@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 2 RAND Health Insurance Experiment | Econometrics of Policy Evaluation</title>
+  <meta name="description" content=" 2 RAND Health Insurance Experiment | Econometrics of Policy Evaluation" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 2 RAND Health Insurance Experiment | Econometrics of Policy Evaluation" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="guerramarcelino/474-Rlab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 2 RAND Health Insurance Experiment | Econometrics of Policy Evaluation" />
+  
+  
+  
+
+<meta name="author" content="Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu" />
+
+
+<meta name="date" content="2022-01-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="inference-review.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ECON 474 @UIUC</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a></li>
+<li class="chapter" data-level="2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html"><i class="fa fa-check"></i><b>2</b> RAND Health Insurance Experiment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#working-with-.rds-files"><i class="fa fa-check"></i><b>2.1</b> Working with .RDS files</a></li>
+<li class="chapter" data-level="2.2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#summarizing-data"><i class="fa fa-check"></i><b>2.2</b> Summarizing data</a></li>
+<li class="chapter" data-level="2.3" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#checking-for-balance"><i class="fa fa-check"></i><b>2.3</b> Checking for Balance</a></li>
+<li class="chapter" data-level="2.4" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#results-of-the-experiment"><i class="fa fa-check"></i><b>2.4</b> Results of the Experiment</a></li>
+<li class="chapter" data-level="2.5" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#equivalence-of-differences-in-means-and-regression"><i class="fa fa-check"></i><b>2.5</b> Equivalence of Differences in Means and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="inference-review.html"><a href="inference-review.html"><i class="fa fa-check"></i><b>3</b> Inference Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference-review.html"><a href="inference-review.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="3.2" data-path="inference-review.html"><a href="inference-review.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>4</b> Subclassification and Matching</a></li>
+<li class="chapter" data-level="5" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>5</b> NonLinear Regression</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>6</b> Instrumental Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="instrumental-variables.html"><a href="instrumental-variables.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>7</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-effects.html"><a href="fixed-effects.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-effects.html"><a href="fixed-effects.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-effects.html"><a href="fixed-effects.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>8</b> Difference-in-Differences</a></li>
+<li class="chapter" data-level="9" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>9</b> Synthetic Control</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometrics of Policy Evaluation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rand-health-insurance-experiment" class="section level1" number="2">
+<h1><span class="header-section-number"> 2</span> RAND Health Insurance Experiment</h1>
+<div id="working-with-.rds-files" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Working with .RDS files</h2>
+<p>The first step is to set up your working directory. To better organize things, I have a folder named <code>Rlabs</code> on my desktop. Inside of it, I also have different folders for each <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> lab - in this case, <code>lab1</code>. To change the working directory, use <code>setwd()</code> with the path that leads to the folder you want.</p>
+<p>In this lab, we will use data from the RAND Health Insurance Experiment (HIE), and there are two datasets. <a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_sample.RDS">Here</a> you have demographic information about the subjects in the study and also health variables (outcomes) both before and after the experiment. The other file (<a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_spend.RDS">here</a>) has information about health care spending.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="rand-health-insurance-experiment.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets&quot;</span>)</span>
+<span id="cb1-2"><a href="rand-health-insurance-experiment.html#cb1-2" aria-hidden="true" tabindex="-1"></a>rand_sample<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;rand_sample.RDS&quot;</span>)</span>
+<span id="cb1-3"><a href="rand-health-insurance-experiment.html#cb1-3" aria-hidden="true" tabindex="-1"></a>rand_spend<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;rand_spend.RDS&quot;</span>)</span></code></pre></div>
+<p>If you want to see the first values on that dataset, you can use the function head() or use <code>View(rand_sample)</code> to open the dataframe in a new tab.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="rand-health-insurance-experiment.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View(rand_sample)</span></span>
+<span id="cb2-2"><a href="rand-health-insurance-experiment.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rand_sample,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="rand-health-insurance-experiment.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(rand_spend)</span>
+<span id="cb3-2"><a href="rand-health-insurance-experiment.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#head(rand_spend,5)</span></span></code></pre></div>
+<p>Besides the column <code>plantype</code>, which identifies the assigned insurance group of each individual, the variables that we are looking for are displayed in <a href="rand-health-insurance-experiment.html#tab:tab1">2.1</a>:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tab1">Table 2.1: </span>Variables Description
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Definition
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="14">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>rand_sample file</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+female
+</td>
+<td style="text-align:left;width: 12cm; ">
+Female
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+blackhisp
+</td>
+<td style="text-align:left;width: 12cm; ">
+Nonwhite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+age
+</td>
+<td style="text-align:left;width: 12cm; ">
+Age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+educper
+</td>
+<td style="text-align:left;width: 12cm; ">
+Education
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+income1cpi
+</td>
+<td style="text-align:left;width: 12cm; ">
+Family Income
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+hosp
+</td>
+<td style="text-align:left;width: 12cm; ">
+Hospitalized last year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+ghindx
+</td>
+<td style="text-align:left;width: 12cm; ">
+General Health Index (before)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+cholest
+</td>
+<td style="text-align:left;width: 12cm; ">
+Cholesterol (mg/dl) (before)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+systol
+</td>
+<td style="text-align:left;width: 12cm; ">
+Systolic blood pressure (mm Hg) (before)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+mhi
+</td>
+<td style="text-align:left;width: 12cm; ">
+Mental Health Index (before)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+ghindxx
+</td>
+<td style="text-align:left;width: 12cm; ">
+General Health Index (after)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+cholestx
+</td>
+<td style="text-align:left;width: 12cm; ">
+Cholesterol (mg/dl) (after)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+systolx
+</td>
+<td style="text-align:left;width: 12cm; ">
+Systolic blood pressure (mm Hg) (after)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+mhix
+</td>
+<td style="text-align:left;width: 12cm; ">
+Mental Health Index (after)
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>rand_spend file</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+ftf
+</td>
+<td style="text-align:left;width: 12cm; ">
+Face-to-face visits
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+out_inf
+</td>
+<td style="text-align:left;width: 12cm; ">
+Outpatient expenses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+totadm
+</td>
+<td style="text-align:left;width: 12cm; ">
+Hospital admissions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+inpdol_inf
+</td>
+<td style="text-align:left;width: 12cm; ">
+Inpatient expenses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+tot_inf
+</td>
+<td style="text-align:left;width: 12cm; ">
+Total expenses
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="summarizing-data" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Summarizing data</h2>
+<p>Let’s say you want to compare demographic characteristics of the individuals in the RAND HIE across health insurance groups. To do that, you just need the functions <code>group_by()</code> and <code>summarize()</code> from the <code>tidyverse</code> package. Since there are some missing observations (NA), allow the function mean() to ignore those NAs.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="rand-health-insurance-experiment.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="rand-health-insurance-experiment.html#cb4-2" aria-hidden="true" tabindex="-1"></a>rand_sample<span class="sc">%&gt;%</span><span class="fu">group_by</span>(plantype)<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="rand-health-insurance-experiment.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">Female=</span><span class="fu">mean</span>(female, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-4"><a href="rand-health-insurance-experiment.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">Nonwhite=</span><span class="fu">mean</span>(blackhisp, <span class="at">na.rm=</span>T),                    </span>
+<span id="cb4-5"><a href="rand-health-insurance-experiment.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">Age=</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-6"><a href="rand-health-insurance-experiment.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">Education=</span><span class="fu">mean</span>(educper, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-7"><a href="rand-health-insurance-experiment.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Family Income</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(income1cpi, <span class="at">na.rm=</span>T),</span>
+<span id="cb4-8"><a href="rand-health-insurance-experiment.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Hospitalized last year</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(hosp, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-9"><a href="rand-health-insurance-experiment.html#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">General Health Index</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(ghindx, <span class="at">na.rm=</span>T),</span>
+<span id="cb4-10"><a href="rand-health-insurance-experiment.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Cholesterol (mg/dl)</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(cholest, <span class="at">na.rm=</span>T),</span>
+<span id="cb4-11"><a href="rand-health-insurance-experiment.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Systolic blood pressure (mm Hg)</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(systol, <span class="at">na.rm=</span>T),</span>
+<span id="cb4-12"><a href="rand-health-insurance-experiment.html#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Mental Health Index</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(mhi, <span class="at">na.rm=</span>T),</span>
+<span id="cb4-13"><a href="rand-health-insurance-experiment.html#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Number enrolled</span><span class="st">`</span><span class="ot">=</span><span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 12
+##   plantype     Female Nonwhite   Age Education `Family Income` `Hospitalized last year`
+##   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;                    &lt;dbl&gt;
+## 1 Catastrophic  0.560    0.172  32.4      12.1          31603.                    0.115
+## 2 Deductible    0.537    0.153  32.9      11.9          29499.                    0.120
+## 3 Coinsurance   0.535    0.145  33.3      12.0          32573.                    0.113
+## 4 Free          0.522    0.144  32.8      11.8          30627.                    0.116
+## # ... with 5 more variables: General Health Index &lt;dbl&gt;, Cholesterol (mg/dl) &lt;dbl&gt;,
+## #   Systolic blood pressure (mm Hg) &lt;dbl&gt;, Mental Health Index &lt;dbl&gt;,
+## #   Number enrolled &lt;int&gt;</code></pre>
+<p>You can see that those values are the same as the ones in the lecture notes.</p>
+</div>
+<div id="checking-for-balance" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Checking for Balance</h2>
+<p>Although you can see the average values of demographic characteristics, we are unsure whether the difference in means across groups is statistically different from zero. We can perform a standard t-test comparing two groups. In this example, we compare the Catastrophic with the free plan. Let’s try education first:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rand-health-insurance-experiment.html#cb6-1" aria-hidden="true" tabindex="-1"></a>cat_vs_free<span class="ot">&lt;-</span>rand_sample<span class="sc">%&gt;%</span><span class="fu">filter</span>(plantype<span class="sc">==</span><span class="st">&quot;Catastrophic&quot;</span><span class="sc">|</span>plantype<span class="sc">==</span><span class="st">&quot;Free&quot;</span>)</span>
+<span id="cb6-2"><a href="rand-health-insurance-experiment.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="rand-health-insurance-experiment.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(educper<span class="sc">~</span>plantype, <span class="at">data=</span>cat_vs_free, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  educper by plantype
+## t = 1.8039, df = 1478.5, p-value = 0.07145
+## alternative hypothesis: true difference in means between group Catastrophic and group Free is not equal to 0
+## 95 percent confidence interval:
+##  -0.02296019  0.54840275
+## sample estimates:
+## mean in group Catastrophic         mean in group Free 
+##                   12.10483                   11.84211</code></pre>
+<p>According to the t-test, the difference of <span class="math inline">\(12.10483-11.84211=0.2627\)</span> is not statistically significant at the 5% level, and we do not reject the null of equal means between groups.</p>
+<p>What about family income?</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="rand-health-insurance-experiment.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(income1cpi<span class="sc">~</span>plantype, <span class="at">data=</span>cat_vs_free, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  income1cpi by plantype
+## t = 1.1661, df = 1431, p-value = 0.2438
+## alternative hypothesis: true difference in means between group Catastrophic and group Free is not equal to 0
+## 95 percent confidence interval:
+##  -665.9016 2618.2711
+## sample estimates:
+## mean in group Catastrophic         mean in group Free 
+##                   31603.21                   30627.02</code></pre>
+<p>Again, the p-value is higher than 0.05, and we cannot reject the null: there is no evidence that family income is different between the Catastrophic and the Free insurance groups.</p>
+<p><strong>As an exercise, try to compare all the demographic characteristics between insurance levels. Use Catastrophic as “control” and Deductible, Coinsurance and Free as “treatment” - do it using pairwise comparisons, e.g., Catastrophic x Deductible, Catastrophic x Coinsurance, and so on.</strong></p>
+</div>
+<div id="results-of-the-experiment" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Results of the Experiment</h2>
+<p>As we saw in class, subjects assigned to more generous insurance plans used substantially more health care. Let’s compare outpatient expenses and face-to-face visits between the Catastrophic group and <strong>the other groups together (we call it <code>any_ins</code>)</strong>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="rand-health-insurance-experiment.html#cb10-1" aria-hidden="true" tabindex="-1"></a>rand_spend<span class="sc">$</span>any_ins<span class="ot">&lt;-</span><span class="fu">ifelse</span>(rand_spend<span class="sc">$</span>plantype<span class="sc">==</span><span class="st">&quot;Catastrophic&quot;</span>, <span class="st">&quot;Catastrophic&quot;</span>,<span class="st">&quot;Any Insurance&quot;</span>)</span>
+<span id="cb10-2"><a href="rand-health-insurance-experiment.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ftf<span class="sc">~</span>any_ins, <span class="at">data=</span>rand_spend,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  ftf by any_ins
+## t = 8.6922, df = 6290.9, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group Any Insurance and group Catastrophic is not equal to 0
+## 95 percent confidence interval:
+##  0.6961629 1.1016118
+## sample estimates:
+## mean in group Any Insurance  mean in group Catastrophic 
+##                    3.682990                    2.784103</code></pre>
+<p>The almost zero p-value gives us confidence that the difference in face-to-face visits between those with some insurance and the Catastrophic group is statistically significant. One can see the same for outpatient expenses below:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="rand-health-insurance-experiment.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(out_inf<span class="sc">~</span>any_ins, <span class="at">data=</span>rand_spend, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  out_inf by any_ins
+## t = 10.992, df = 6274.9, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group Any Insurance and group Catastrophic is not equal to 0
+## 95 percent confidence interval:
+##   82.67062 118.56030
+## sample estimates:
+## mean in group Any Insurance  mean in group Catastrophic 
+##                    348.4137                    247.7983</code></pre>
+</div>
+<div id="equivalence-of-differences-in-means-and-regression" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Equivalence of Differences in Means and Regression</h2>
+<p>Instead of performing a t-test for differences in means, one can run regressions and get the same results. Regression plays an important role in empirical economic research and can be easily applied to experimental data. The advantage is that you can add controls and fix standard errors (we will talk about that later).</p>
+<p>Let’s first create a dummy that is equal to 1 if the individual has “any insurance” (i.e., is assigned to the Deductible, Coinsurance, or Free group) and zero otherwise:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="rand-health-insurance-experiment.html#cb14-1" aria-hidden="true" tabindex="-1"></a>rand_spend<span class="sc">$</span>dummy_ins<span class="ot">&lt;-</span><span class="fu">ifelse</span>(rand_spend<span class="sc">$</span>any_ins<span class="sc">==</span><span class="st">&quot;Any Insurance&quot;</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>Then, use the <code>lm()</code> to perform a linear regression of Face-to-face visits on the dummy that identifies the comparison groups:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="rand-health-insurance-experiment.html#cb15-1" aria-hidden="true" tabindex="-1"></a>reg1<span class="ot">&lt;-</span><span class="fu">lm</span>(ftf<span class="sc">~</span>dummy_ins, <span class="at">data=</span>rand_spend)</span>
+<span id="cb15-2"><a href="rand-health-insurance-experiment.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ftf ~ dummy_ins, data = rand_spend)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+##  -3.683  -2.784  -1.683   0.317 140.317 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.7841     0.1036  26.876  &lt; 2e-16 ***
+## dummy_ins     0.8989     0.1147   7.837 4.85e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.322 on 20201 degrees of freedom
+## Multiple R-squared:  0.003031,   Adjusted R-squared:  0.002982 
+## F-statistic: 61.42 on 1 and 20201 DF,  p-value: 4.849e-15</code></pre>
+<p>The coefficient <code>0.8989</code> represents the difference in face-to-face visits between the insurance groups. As one can see, the coefficient is statistically significant (p-value&lt;0.05).</p>
+<p>When you perform the t-test for difference in means with the option <code>var.equal=TRUE</code> (i.e., assuming equal variance), you get the same standard errors/p-value/t statistic. Notice that running the standard OLS, you assume homoskedasticity, and that is why you need to set <code>var.equal=TRUE</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="rand-health-insurance-experiment.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ftf<span class="sc">~</span>any_ins, <span class="at">data=</span>rand_spend,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  ftf by any_ins
+## t = 7.8368, df = 20201, p-value = 4.849e-15
+## alternative hypothesis: true difference in means between group Any Insurance and group Catastrophic is not equal to 0
+## 95 percent confidence interval:
+##  0.6740646 1.1237101
+## sample estimates:
+## mean in group Any Insurance  mean in group Catastrophic 
+##                    3.682990                    2.784103</code></pre>
+<p>Doing the same for <strong>outpatient expenses</strong>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="rand-health-insurance-experiment.html#cb19-1" aria-hidden="true" tabindex="-1"></a>reg2<span class="ot">&lt;-</span><span class="fu">lm</span>(out_inf<span class="sc">~</span>dummy_ins, <span class="at">data=</span>rand_spend)</span>
+<span id="cb19-2"><a href="rand-health-insurance-experiment.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = out_inf ~ dummy_ins, data = rand_spend)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+##  -348.4  -290.3  -175.5    69.2 12527.1 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  247.798      9.153  27.073   &lt;2e-16 ***
+## dummy_ins    100.615     10.135   9.928   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 558.6 on 20201 degrees of freedom
+## Multiple R-squared:  0.004855,   Adjusted R-squared:  0.004806 
+## F-statistic: 98.56 on 1 and 20201 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="rand-health-insurance-experiment.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(out_inf<span class="sc">~</span>any_ins, <span class="at">data=</span>rand_spend, <span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  out_inf by any_ins
+## t = 9.9278, df = 20201, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group Any Insurance and group Catastrophic is not equal to 0
+## 95 percent confidence interval:
+##   80.75058 120.48034
+## sample estimates:
+## mean in group Any Insurance  mean in group Catastrophic 
+##                    348.4137                    247.7983</code></pre>
+<p><strong>What about the health outcomes?</strong> Compare the average health outcomes after the experiment - <code>ghindxx</code>, <code>cholestx</code>, <code>systolx</code>, <code>mhix</code> - between the Catastrophic and any insurance groups using regression. Do you see any statistically significant coefficient?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inference-review.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-Randomization.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
