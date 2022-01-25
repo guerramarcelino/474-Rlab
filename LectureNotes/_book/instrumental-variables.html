@@ -24,7 +24,7 @@
 <meta name="author" content="Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu" />
 
 
-<meta name="date" content="2022-01-21" />
+<meta name="date" content="2022-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,8 +53,74 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -92,16 +158,62 @@
 <li class="chapter" data-level="3.6" data-path="inference-review.html"><a href="inference-review.html#confidence-interval"><i class="fa fa-check"></i><b>3.6</b> Confidence Interval</a></li>
 <li class="chapter" data-level="3.7" data-path="inference-review.html"><a href="inference-review.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.7</b> Hypothesis Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>4</b> Subclassification and Matching</a></li>
+<li class="chapter" data-level="4" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>4</b> Subclassification and Matching</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#subclassification-example"><i class="fa fa-check"></i><b>4.1</b> Subclassification Example</a></li>
+<li class="chapter" data-level="4.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#propensity-score-example"><i class="fa fa-check"></i><b>4.2</b> Propensity Score Example</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#nearest-neighbor-matching"><i class="fa fa-check"></i><b>4.2.1</b> Nearest-Neighbor Matching</a></li>
+<li class="chapter" data-level="4.2.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#weighting-on-the-propensity-score"><i class="fa fa-check"></i><b>4.2.2</b> Weighting on the Propensity Score</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>5</b> NonLinear Regression</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#generalized-linear-models-glm"><i class="fa fa-check"></i><b>5.1</b> Generalized Linear Models (GLM)</a></li>
 <li class="chapter" data-level="5.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#a-taste-of-machine-learning"><i class="fa fa-check"></i><b>5.2</b> A Taste of Machine Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>6</b> Instrumental Variables</a></li>
-<li class="chapter" data-level="7" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>7</b> Fixed Effects</a></li>
-<li class="chapter" data-level="8" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>8</b> Difference-in-Differences</a></li>
-<li class="chapter" data-level="9" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>9</b> Synthetic Control</a></li>
+<li class="chapter" data-level="6" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>6</b> Instrumental Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#preliminaries"><i class="fa fa-check"></i><b>6.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#ols-results"><i class="fa fa-check"></i><b>6.2</b> OLS results</a></li>
+<li class="chapter" data-level="6.3" data-path="instrumental-variables.html"><a href="instrumental-variables.html#wald-estimator"><i class="fa fa-check"></i><b>6.3</b> Wald Estimator</a></li>
+<li class="chapter" data-level="6.4" data-path="instrumental-variables.html"><a href="instrumental-variables.html#sls-estimates"><i class="fa fa-check"></i><b>6.4</b> 2SLS Estimates</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#manually-getting-the-coefficient-dont-do-it"><i class="fa fa-check"></i><b>6.4.1</b> Manually getting the coefficient (don’t do it!)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#the-correct-way"><i class="fa fa-check"></i><b>6.4.2</b> The correct way</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>7</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-effects.html"><a href="fixed-effects.html#preliminaries-1"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-effects.html"><a href="fixed-effects.html#between-variation"><i class="fa fa-check"></i><b>7.2</b> Between variation</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-effects.html"><a href="fixed-effects.html#within-variation"><i class="fa fa-check"></i><b>7.3</b> Within variation</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-the-demeaned-values-of-y_it-on-d_it"><i class="fa fa-check"></i><b>7.3.1</b> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-and-county-unit-dummies"><i class="fa fa-check"></i><b>7.3.2</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</a></li>
+<li class="chapter" data-level="7.3.3" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-with-canned-fixed-effects-routine"><i class="fa fa-check"></i><b>7.3.3</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="fixed-effects.html"><a href="fixed-effects.html#two-way-fixed-effects"><i class="fa fa-check"></i><b>7.4</b> Two-way fixed effects</a></li>
+<li class="chapter" data-level="7.5" data-path="fixed-effects.html"><a href="fixed-effects.html#panel-data-alone-cant-deal-with-simultaneity"><i class="fa fa-check"></i><b>7.5</b> Panel data alone can’t deal with simultaneity</a></li>
+<li class="chapter" data-level="7.6" data-path="fixed-effects.html"><a href="fixed-effects.html#intepreting-within-relationships"><i class="fa fa-check"></i><b>7.6</b> Intepreting Within Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>8</b> Difference-in-Differences</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#line-plots"><i class="fa fa-check"></i><b>8.1</b> Line plots</a></li>
+<li class="chapter" data-level="8.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#difference-in-differences-example-cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>8.2</b> Difference-in-Differences Example: Cheng and Hoekstra (2013)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>8.2.1</b> Falsification tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>8.2.2</b> Deterrence</a></li>
+<li class="chapter" data-level="8.2.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>8.2.3</b> Homicide in Florida</a></li>
+<li class="chapter" data-level="8.2.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>8.2.4</b> Multistate Homicide Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>9</b> Synthetic Control</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="synthetic-control.html"><a href="synthetic-control.html#preliminaries-2"><i class="fa fa-check"></i><b>9.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="9.2" data-path="synthetic-control.html"><a href="synthetic-control.html#the-economic-cost-of-the-1990-german-reunification"><i class="fa fa-check"></i><b>9.2</b> The Economic Cost of the 1990 German Reunification</a></li>
+<li class="chapter" data-level="9.3" data-path="synthetic-control.html"><a href="synthetic-control.html#placebo-studies"><i class="fa fa-check"></i><b>9.3</b> Placebo Studies</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -125,7 +237,204 @@
             <section class="normal" id="section-">
 <div id="instrumental-variables" class="section level1" number="6">
 <h1><span class="header-section-number"> 6</span> Instrumental Variables</h1>
+<div id="preliminaries" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Preliminaries</h2>
+<p>Here we replicate some tables from <a href="https://www.nber.org/papers/w3572">Angrist and Krueger (1991)</a>. The dataset <code>ak91_census1980</code> <a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/ak91_census1980">download here</a> comprehends men born in 1930-1939 in the U.S. Census. The table below describes the variables:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-1">Table 6.1: </span>Variables Description
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Definition
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+lnw
+</td>
+<td style="text-align:left;width: 12cm; ">
+Log weekly wages
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s
+</td>
+<td style="text-align:left;width: 12cm; ">
+Years of schooling
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+yob
+</td>
+<td style="text-align:left;width: 12cm; ">
+Year of birth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qob
+</td>
+<td style="text-align:left;width: 12cm; ">
+Quarter of birth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sob
+</td>
+<td style="text-align:left;width: 12cm; ">
+State of birth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:left;width: 12cm; ">
+Age
+</td>
+</tr>
+</tbody>
+</table>
+<p>The authors present an IV analysis of returns to schooling, instrumenting years of education with birth quarters (QOB).</p>
+</div>
+<div id="ols-results" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> OLS results</h2>
+<p>Reading the <code>ak91_census1980.RDS</code> file and running the regression of <code>lnw</code> on <code>s</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="instrumental-variables.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets&quot;</span>)</span>
+<span id="cb1-2"><a href="instrumental-variables.html#cb1-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;ak91_census1980&quot;</span>)</span>
+<span id="cb1-3"><a href="instrumental-variables.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="instrumental-variables.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb1-5"><a href="instrumental-variables.html#cb1-5" aria-hidden="true" tabindex="-1"></a>reg_ols1<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span>s, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb1-6"><a href="instrumental-variables.html#cb1-6" aria-hidden="true" tabindex="-1"></a>reg_ols2<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span>s<span class="sc">|</span>yob<span class="sc">+</span>sob, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb1-7"><a href="instrumental-variables.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_ols1, reg_ols2, <span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>))</span></code></pre></div>
+<pre><code>##                           reg_ols1           reg_ols2
+## Dependent Var.:                lnw                lnw
+##                                                      
+## (Intercept)      4.995*** (0.0051)                   
+## s               0.0708*** (0.0004) 0.0673*** (0.0004)
+## Fixed-Effects:  ------------------ ------------------
+## yob                             No                Yes
+## sob                             No                Yes
+## _______________ __________________ __________________
+## S.E. type       Heteroskedas.-rob. Heteroskedas.-rob.
+## Observations               329,509            329,509
+## R2                         0.11729            0.12878
+## Within R2                       --            0.10289</code></pre>
+<p>The results point to an average increase in wages of around 6.73-7.09% due to one additional year of schooling - the second regression controls for the year of birth and state of birth.</p>
+</div>
+<div id="wald-estimator" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Wald Estimator</h2>
+<p>Let’s create the instrument <span class="math inline">\(Z_{i}\)</span> that takes on 1 if the individual was born in the <span class="math inline">\(1^{st}\)</span> quarter of the year and 0 otherwise:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="instrumental-variables.html#cb3-1" aria-hidden="true" tabindex="-1"></a>ak91<span class="sc">$</span>instrument<span class="ot">&lt;-</span><span class="fu">ifelse</span>(ak91<span class="sc">$</span>qob<span class="sc">==</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>Now, take a look at the average salaries and years of schooling by QOB status:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="instrumental-variables.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="instrumental-variables.html#cb4-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="sc">%&gt;%</span><span class="fu">group_by</span>(instrument)<span class="sc">%&gt;%</span><span class="fu">summarize</span>(<span class="at">wages=</span><span class="fu">mean</span>(lnw), <span class="at">schooling=</span><span class="fu">mean</span>(s))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   instrument wages schooling
+##        &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+## 1          0  5.90      12.8
+## 2          1  5.89      12.7</code></pre>
+<p>People born in the first quarter of the year (i.e., <span class="math inline">\(Z_{i}=1\)</span>) have, on average, slightly lower wages and years of schooling - the same pattern we saw in the <a href="https://guerramarcelino.github.io/Econ474/Lectures/Lec4/lec4#13">lecture notes</a>. To estimate the returns to schooling using the Wald estimator, divide the reduced form by the first stage results:</p>
+<p><span class="math display">\[\text{Effect of schooling on wages}=
+\frac{\text{Effect of QOB on wages}}{\text{Effect of QOB on schooling}}\]</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="instrumental-variables.html#cb6-1" aria-hidden="true" tabindex="-1"></a>RF<span class="ot">&lt;-</span><span class="fu">mean</span>(ak91<span class="sc">$</span>lnw[ak91<span class="sc">$</span>instrument<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(ak91<span class="sc">$</span>lnw[ak91<span class="sc">$</span>instrument<span class="sc">==</span><span class="dv">0</span>])</span>
+<span id="cb6-2"><a href="instrumental-variables.html#cb6-2" aria-hidden="true" tabindex="-1"></a>FS<span class="ot">&lt;-</span><span class="fu">mean</span>(ak91<span class="sc">$</span>s[ak91<span class="sc">$</span>instrument<span class="sc">==</span><span class="dv">1</span>])<span class="sc">-</span><span class="fu">mean</span>(ak91<span class="sc">$</span>s[ak91<span class="sc">$</span>instrument<span class="sc">==</span><span class="dv">0</span>])</span>
+<span id="cb6-3"><a href="instrumental-variables.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="instrumental-variables.html#cb6-4" aria-hidden="true" tabindex="-1"></a>Wald<span class="ot">=</span>RF<span class="sc">/</span>FS</span>
+<span id="cb6-5"><a href="instrumental-variables.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="instrumental-variables.html#cb6-6" aria-hidden="true" tabindex="-1"></a>Wald</span></code></pre></div>
+<pre><code>## [1] 0.101995</code></pre>
+<p>The Wald estimator gives a return to education around 10.2%. The difference from the OLS results is driven by the <strong>omitted variable bias</strong>.</p>
+</div>
+<div id="sls-estimates" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> 2SLS Estimates</h2>
+<div id="manually-getting-the-coefficient-dont-do-it" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Manually getting the coefficient (don’t do it!)</h3>
+<p>To better understand the 2SLS estimation method, run the regression <span class="math inline">\(s_{i}\)</span> on <span class="math inline">\(Z_{i}\)</span> and store the fitted values <span class="math inline">\(\hat{s}_{i}\)</span>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="instrumental-variables.html#cb8-1" aria-hidden="true" tabindex="-1"></a>first_stage<span class="ot">&lt;-</span><span class="fu">feols</span>(s<span class="sc">~</span>instrument, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb8-2"><a href="instrumental-variables.html#cb8-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="sc">$</span>s_hat<span class="ot">&lt;-</span>first_stage<span class="sc">$</span>fitted.values</span></code></pre></div>
+<p>Since <span class="math inline">\(\hat{s}_{i}\)</span> is not correlated with the error term anymore, the regression <span class="math inline">\(lnw_{i}\)</span> on <span class="math inline">\(\hat{s}_{i}\)</span> gives you the causal effect of years of schooling on weekly wages:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="instrumental-variables.html#cb9-1" aria-hidden="true" tabindex="-1"></a>second_stage<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span>s_hat, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb9-2"><a href="instrumental-variables.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(second_stage)</span></code></pre></div>
+<pre><code>## OLS estimation, Dep. Var.: lnw
+## Observations: 329,509 
+## Standard-errors: Heteroskedasticity-robust 
+##             Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept) 4.597500   0.322078  14.274 &lt; 2.2e-16 ***
+## s_hat       0.101995   0.025221   4.044   5.3e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## RMSE: 0.678806   Adj. R2: 4.68e-5</code></pre>
+<p>Which is the same 10.2% we got using the Wald Estimator. The advantage of regression is the ability to include more than one instrument and also covariates (such as year of birth and state of birth).</p>
+</div>
+<div id="the-correct-way" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> The correct way</h3>
+<p>The procedure above gives you the correct coefficient, but the standard errors are not quite right. <strong>We let <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> estimate an IV regression using 2SLS for us</strong>.</p>
+<p>The simple case is one instrument without any covariates:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="instrumental-variables.html#cb11-1" aria-hidden="true" tabindex="-1"></a>ivreg<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>s<span class="sc">~</span>instrument, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb11-2"><a href="instrumental-variables.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ivreg)</span></code></pre></div>
+<pre><code>## TSLS estimation, Dep. Var.: lnw, Endo.: s, Instr.: instrument
+## Second stage: Dep. Var.: lnw
+## Observations: 329,509 
+## Standard-errors: Heteroskedasticity-robust 
+##             Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept) 4.597500   0.306890 14.9810 &lt; 2.2e-16 ***
+## fit_s       0.101995   0.024032  4.2442   2.2e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## RMSE: 0.645908   Adj. R2: 0.094623
+## F-test (1st stage): stat = 67.6   , p &lt; 2.2e-16 , on 1 and 329,507 DoF.
+##         Wu-Hausman: stat =  1.7349, p = 0.187788, on 1 and 329,506 DoF.</code></pre>
+<p>After the vertical bar <code>|</code>, identify the endogenous variable (in this case, <span class="math inline">\(s_{i}\)</span>) and the instrument <span class="math inline">\(Z_{i}\)</span> you want to use.</p>
+<p>If you want to add controls:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="instrumental-variables.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ivreg2<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>yob<span class="sc">+</span>sob<span class="sc">|</span>s<span class="sc">~</span>instrument, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb13-2"><a href="instrumental-variables.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ivreg2)</span></code></pre></div>
+<pre><code>## TSLS estimation, Dep. Var.: lnw, Endo.: s, Instr.: instrument
+## Second stage: Dep. Var.: lnw
+## Observations: 329,509 
+## Fixed-effects: yob: 10,  sob: 51
+## Standard-errors: Heteroskedasticity-robust 
+##       Estimate Std. Error t value Pr(&gt;|t|)    
+## fit_s 0.104194   0.025669  4.0592  4.9e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## RMSE: 0.644398     Adj. R2: 0.098689
+##                  Within R2: 0.072069
+## F-test (1st stage): stat = 62.5   , p = 2.673e-15, on 1 and 329,448 DoF.
+##         Wu-Hausman: stat =  2.1472, p = 0.142833 , on 1 and 329,447 DoF.</code></pre>
+<p>You can also combine multiple instruments. For instance, let’s bundle up the instrument <code>first quarter of year</code> with second and third:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="instrumental-variables.html#cb15-1" aria-hidden="true" tabindex="-1"></a>ak91<span class="sc">$</span>instrument2<span class="ot">&lt;-</span><span class="fu">ifelse</span>(ak91<span class="sc">$</span>qob<span class="sc">==</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb15-2"><a href="instrumental-variables.html#cb15-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="sc">$</span>instrument3<span class="ot">&lt;-</span><span class="fu">ifelse</span>(ak91<span class="sc">$</span>qob<span class="sc">==</span><span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>Now, we have three instruments: the first three quarters of the year. As you can see, we got a more precise estimate (the standard error went down), and the returns to schooling increased a bit.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="instrumental-variables.html#cb16-1" aria-hidden="true" tabindex="-1"></a>ivreg3<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>yob<span class="sc">+</span>sob<span class="sc">|</span>s<span class="sc">~</span>instrument<span class="sc">+</span>instrument2<span class="sc">+</span>instrument3, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
+<span id="cb16-2"><a href="instrumental-variables.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ivreg3)</span></code></pre></div>
+<pre><code>## TSLS estimation, Dep. Var.: lnw, Endo.: s, Instr.: instrument, instrument2, instrument3
+## Second stage: Dep. Var.: lnw
+## Observations: 329,509 
+## Fixed-effects: yob: 10,  sob: 51
+## Standard-errors: Heteroskedasticity-robust 
+##       Estimate Std. Error t value Pr(&gt;|t|)    
+## fit_s 0.107694   0.019559  5.5061 3.67e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## RMSE: 0.646523     Adj. R2: 0.092734
+##                  Within R2: 0.065938
+## F-test (1st stage): stat = 36.0   , p &lt; 2.2e-16 , on 3 and 329,446 DoF.
+##         Wu-Hausman: stat =  4.453 , p = 0.034841, on 1 and 329,447 DoF.
+##             Sargan: stat =  3.0652, p = 0.215978, on 2 DoF.</code></pre>
 
+</div>
+</div>
 </div>
             </section>
 
@@ -187,6 +496,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
