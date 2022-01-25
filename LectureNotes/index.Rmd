@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-url: https://guerramarcelino.github.io/Econ474/Rlabs
+url: https://guerramarcelino.github.io/Econ474/474-Rlabs/
 description: "ECON 474 R-lab notes" 
 link-citations: yes
 github-repo: guerramarcelino/474-Rlab
