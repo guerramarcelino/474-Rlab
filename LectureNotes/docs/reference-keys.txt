@@ -49,3 +49,8 @@ synthetic-control
 preliminaries-2
 the-economic-cost-of-the-1990-german-reunification
 placebo-studies
+tab:unnamed-chunk-1
+tab:unnamed-chunk-6
+references
+tab:tab1
+tab:unnamed-chunk-5

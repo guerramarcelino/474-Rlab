@@ -12,7 +12,7 @@ library(fontawesome)
 
 ## Subclassification Example
 
-In this example, we are going to follow [Cunningham (2021)](https://mixtape.scunning.com/matching-and-subclassification.html?panelset=r-code&panelset1=r-code2&panelset2=r-code3#subclassification-exercise-titanic-mathrmdata-set) and use a dataset of *Titanic* passengers. Download the `.RDS` file [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/titanic.RDS).
+In this example, we are going to follow @cunningham2021causal and use a dataset of *Titanic* passengers. Download the `.RDS` file [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/titanic.RDS).
 
 The variables' description is the following:
 
