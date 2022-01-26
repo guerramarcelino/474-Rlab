@@ -4,19 +4,19 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 7 Fixed Effects | Econometrics of Policy Evaluation</title>
+  <title> 6 Fixed Effects | Econometrics of Policy Evaluation</title>
   <meta name="description" content="ECON 474 R-lab notes" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 7 Fixed Effects | Econometrics of Policy Evaluation" />
+  <meta property="og:title" content=" 6 Fixed Effects | Econometrics of Policy Evaluation" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://guerramarcelino.github.io/Econ474/Rlabs" />
+  <meta property="og:url" content="https://guerramarcelino.github.io/Econ474/474-Rlabs/" />
   
   <meta property="og:description" content="ECON 474 R-lab notes" />
   <meta name="github-repo" content="guerramarcelino/474-Rlab" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 7 Fixed Effects | Econometrics of Policy Evaluation" />
+  <meta name="twitter:title" content=" 6 Fixed Effects | Econometrics of Policy Evaluation" />
   
   <meta name="twitter:description" content="ECON 474 R-lab notes" />
   
@@ -122,6 +122,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -139,80 +161,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">ECON 474 @UIUC</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome!</a></li>
-<li class="chapter" data-level="2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html"><i class="fa fa-check"></i><b>2</b> RAND Health Insurance Experiment</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a></li>
+<li class="chapter" data-level="1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html"><i class="fa fa-check"></i><b>1</b> RAND Health Insurance Experiment</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#working-with-.rds-files"><i class="fa fa-check"></i><b>2.1</b> Working with .RDS files</a></li>
-<li class="chapter" data-level="2.2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#summarizing-data"><i class="fa fa-check"></i><b>2.2</b> Summarizing data</a></li>
-<li class="chapter" data-level="2.3" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#checking-for-balance"><i class="fa fa-check"></i><b>2.3</b> Checking for Balance</a></li>
-<li class="chapter" data-level="2.4" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#results-of-the-experiment"><i class="fa fa-check"></i><b>2.4</b> Results of the Experiment</a></li>
-<li class="chapter" data-level="2.5" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#equivalence-of-differences-in-means-and-regression"><i class="fa fa-check"></i><b>2.5</b> Equivalence of Differences in Means and Regression</a></li>
+<li class="chapter" data-level="1.1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#working-with-.rds-files"><i class="fa fa-check"></i><b>1.1</b> Working with .RDS files</a></li>
+<li class="chapter" data-level="1.2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#summarizing-data"><i class="fa fa-check"></i><b>1.2</b> Summarizing data</a></li>
+<li class="chapter" data-level="1.3" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#checking-for-balance"><i class="fa fa-check"></i><b>1.3</b> Checking for Balance</a></li>
+<li class="chapter" data-level="1.4" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#results-of-the-experiment"><i class="fa fa-check"></i><b>1.4</b> Results of the Experiment</a></li>
+<li class="chapter" data-level="1.5" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#equivalence-of-differences-in-means-and-regression"><i class="fa fa-check"></i><b>1.5</b> Equivalence of Differences in Means and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="inference-review.html"><a href="inference-review.html"><i class="fa fa-check"></i><b>3</b> Inference Review</a>
+<li class="chapter" data-level="2" data-path="inference-review.html"><a href="inference-review.html"><i class="fa fa-check"></i><b>2</b> Inference Review</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="inference-review.html"><a href="inference-review.html#flipping-coins"><i class="fa fa-check"></i><b>3.1</b> Flipping coins</a></li>
-<li class="chapter" data-level="3.2" data-path="inference-review.html"><a href="inference-review.html#sample-mean"><i class="fa fa-check"></i><b>3.2</b> Sample mean</a></li>
-<li class="chapter" data-level="3.3" data-path="inference-review.html"><a href="inference-review.html#measuring-variability"><i class="fa fa-check"></i><b>3.3</b> Measuring Variability</a></li>
-<li class="chapter" data-level="3.4" data-path="inference-review.html"><a href="inference-review.html#central-limit-theorem-clt"><i class="fa fa-check"></i><b>3.4</b> Central Limit Theorem (CLT)</a></li>
-<li class="chapter" data-level="3.5" data-path="inference-review.html"><a href="inference-review.html#the-t-statistic-and-the-clt"><i class="fa fa-check"></i><b>3.5</b> The t-Statistic and the CLT</a></li>
-<li class="chapter" data-level="3.6" data-path="inference-review.html"><a href="inference-review.html#confidence-interval"><i class="fa fa-check"></i><b>3.6</b> Confidence Interval</a></li>
-<li class="chapter" data-level="3.7" data-path="inference-review.html"><a href="inference-review.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.7</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="2.1" data-path="inference-review.html"><a href="inference-review.html#flipping-coins"><i class="fa fa-check"></i><b>2.1</b> Flipping coins</a></li>
+<li class="chapter" data-level="2.2" data-path="inference-review.html"><a href="inference-review.html#sample-mean"><i class="fa fa-check"></i><b>2.2</b> Sample mean</a></li>
+<li class="chapter" data-level="2.3" data-path="inference-review.html"><a href="inference-review.html#measuring-variability"><i class="fa fa-check"></i><b>2.3</b> Measuring Variability</a></li>
+<li class="chapter" data-level="2.4" data-path="inference-review.html"><a href="inference-review.html#central-limit-theorem-clt"><i class="fa fa-check"></i><b>2.4</b> Central Limit Theorem (CLT)</a></li>
+<li class="chapter" data-level="2.5" data-path="inference-review.html"><a href="inference-review.html#the-t-statistic-and-the-clt"><i class="fa fa-check"></i><b>2.5</b> The t-Statistic and the CLT</a></li>
+<li class="chapter" data-level="2.6" data-path="inference-review.html"><a href="inference-review.html#confidence-interval"><i class="fa fa-check"></i><b>2.6</b> Confidence Interval</a></li>
+<li class="chapter" data-level="2.7" data-path="inference-review.html"><a href="inference-review.html#hypothesis-testing"><i class="fa fa-check"></i><b>2.7</b> Hypothesis Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>4</b> Subclassification and Matching</a>
+<li class="chapter" data-level="3" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>3</b> Subclassification and Matching</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#subclassification-example"><i class="fa fa-check"></i><b>4.1</b> Subclassification Example</a></li>
-<li class="chapter" data-level="4.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#propensity-score-example"><i class="fa fa-check"></i><b>4.2</b> Propensity Score Example</a>
+<li class="chapter" data-level="3.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#subclassification-example"><i class="fa fa-check"></i><b>3.1</b> Subclassification Example</a></li>
+<li class="chapter" data-level="3.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#propensity-score-example"><i class="fa fa-check"></i><b>3.2</b> Propensity Score Example</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#nearest-neighbor-matching"><i class="fa fa-check"></i><b>4.2.1</b> Nearest-Neighbor Matching</a></li>
-<li class="chapter" data-level="4.2.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#weighting-on-the-propensity-score"><i class="fa fa-check"></i><b>4.2.2</b> Weighting on the Propensity Score</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>5</b> NonLinear Regression</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#generalized-linear-models-glm"><i class="fa fa-check"></i><b>5.1</b> Generalized Linear Models (GLM)</a></li>
-<li class="chapter" data-level="5.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#a-taste-of-machine-learning"><i class="fa fa-check"></i><b>5.2</b> A Taste of Machine Learning</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>6</b> Instrumental Variables</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#preliminaries"><i class="fa fa-check"></i><b>6.1</b> Preliminaries</a></li>
-<li class="chapter" data-level="6.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#ols-results"><i class="fa fa-check"></i><b>6.2</b> OLS results</a></li>
-<li class="chapter" data-level="6.3" data-path="instrumental-variables.html"><a href="instrumental-variables.html#wald-estimator"><i class="fa fa-check"></i><b>6.3</b> Wald Estimator</a></li>
-<li class="chapter" data-level="6.4" data-path="instrumental-variables.html"><a href="instrumental-variables.html#sls-estimates"><i class="fa fa-check"></i><b>6.4</b> 2SLS Estimates</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#manually-getting-the-coefficient-dont-do-it"><i class="fa fa-check"></i><b>6.4.1</b> Manually getting the coefficient (don’t do it!)</a></li>
-<li class="chapter" data-level="6.4.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#the-correct-way"><i class="fa fa-check"></i><b>6.4.2</b> The correct way</a></li>
+<li class="chapter" data-level="3.2.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#nearest-neighbor-matching"><i class="fa fa-check"></i><b>3.2.1</b> Nearest-Neighbor Matching</a></li>
+<li class="chapter" data-level="3.2.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#weighting-on-the-propensity-score"><i class="fa fa-check"></i><b>3.2.2</b> Weighting on the Propensity Score</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>7</b> Fixed Effects</a>
+<li class="chapter" data-level="4" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>4</b> NonLinear Regression</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="fixed-effects.html"><a href="fixed-effects.html#preliminaries-1"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
-<li class="chapter" data-level="7.2" data-path="fixed-effects.html"><a href="fixed-effects.html#between-variation"><i class="fa fa-check"></i><b>7.2</b> Between variation</a></li>
-<li class="chapter" data-level="7.3" data-path="fixed-effects.html"><a href="fixed-effects.html#within-variation"><i class="fa fa-check"></i><b>7.3</b> Within variation</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-the-demeaned-values-of-y_it-on-d_it"><i class="fa fa-check"></i><b>7.3.1</b> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-and-county-unit-dummies"><i class="fa fa-check"></i><b>7.3.2</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</a></li>
-<li class="chapter" data-level="7.3.3" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-with-canned-fixed-effects-routine"><i class="fa fa-check"></i><b>7.3.3</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</a></li>
+<li class="chapter" data-level="4.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#generalized-linear-models-glm"><i class="fa fa-check"></i><b>4.1</b> Generalized Linear Models (GLM)</a></li>
+<li class="chapter" data-level="4.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#a-taste-of-machine-learning"><i class="fa fa-check"></i><b>4.2</b> A Taste of Machine Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="fixed-effects.html"><a href="fixed-effects.html#two-way-fixed-effects"><i class="fa fa-check"></i><b>7.4</b> Two-way fixed effects</a></li>
-<li class="chapter" data-level="7.5" data-path="fixed-effects.html"><a href="fixed-effects.html#panel-data-alone-cant-deal-with-simultaneity"><i class="fa fa-check"></i><b>7.5</b> Panel data alone can’t deal with simultaneity</a></li>
-<li class="chapter" data-level="7.6" data-path="fixed-effects.html"><a href="fixed-effects.html#intepreting-within-relationships"><i class="fa fa-check"></i><b>7.6</b> Intepreting Within Relationships</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>8</b> Difference-in-Differences</a>
+<li class="chapter" data-level="5" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>5</b> Instrumental Variables</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#line-plots"><i class="fa fa-check"></i><b>8.1</b> Line plots</a></li>
-<li class="chapter" data-level="8.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#difference-in-differences-example-cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>8.2</b> Difference-in-Differences Example: Cheng and Hoekstra (2013)</a>
+<li class="chapter" data-level="5.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#preliminaries"><i class="fa fa-check"></i><b>5.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="5.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#ols-results"><i class="fa fa-check"></i><b>5.2</b> OLS results</a></li>
+<li class="chapter" data-level="5.3" data-path="instrumental-variables.html"><a href="instrumental-variables.html#wald-estimator"><i class="fa fa-check"></i><b>5.3</b> Wald Estimator</a></li>
+<li class="chapter" data-level="5.4" data-path="instrumental-variables.html"><a href="instrumental-variables.html#sls-estimates"><i class="fa fa-check"></i><b>5.4</b> 2SLS Estimates</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>8.2.1</b> Falsification tests</a></li>
-<li class="chapter" data-level="8.2.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>8.2.2</b> Deterrence</a></li>
-<li class="chapter" data-level="8.2.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>8.2.3</b> Homicide in Florida</a></li>
-<li class="chapter" data-level="8.2.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>8.2.4</b> Multistate Homicide Regression</a></li>
+<li class="chapter" data-level="5.4.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#manually-getting-the-coefficient-dont-do-it"><i class="fa fa-check"></i><b>5.4.1</b> Manually getting the coefficient (don’t do it!)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#the-correct-way"><i class="fa fa-check"></i><b>5.4.2</b> The correct way</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>9</b> Synthetic Control</a>
+<li class="chapter" data-level="6" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>6</b> Fixed Effects</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="synthetic-control.html"><a href="synthetic-control.html#preliminaries-2"><i class="fa fa-check"></i><b>9.1</b> Preliminaries</a></li>
-<li class="chapter" data-level="9.2" data-path="synthetic-control.html"><a href="synthetic-control.html#the-economic-cost-of-the-1990-german-reunification"><i class="fa fa-check"></i><b>9.2</b> The Economic Cost of the 1990 German Reunification</a></li>
-<li class="chapter" data-level="9.3" data-path="synthetic-control.html"><a href="synthetic-control.html#placebo-studies"><i class="fa fa-check"></i><b>9.3</b> Placebo Studies</a></li>
+<li class="chapter" data-level="6.1" data-path="fixed-effects.html"><a href="fixed-effects.html#preliminaries-1"><i class="fa fa-check"></i><b>6.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.2" data-path="fixed-effects.html"><a href="fixed-effects.html#between-variation"><i class="fa fa-check"></i><b>6.2</b> Between variation</a></li>
+<li class="chapter" data-level="6.3" data-path="fixed-effects.html"><a href="fixed-effects.html#within-variation"><i class="fa fa-check"></i><b>6.3</b> Within variation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-the-demeaned-values-of-y_it-on-d_it"><i class="fa fa-check"></i><b>6.3.1</b> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-and-county-unit-dummies"><i class="fa fa-check"></i><b>6.3.2</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</a></li>
+<li class="chapter" data-level="6.3.3" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-with-canned-fixed-effects-routine"><i class="fa fa-check"></i><b>6.3.3</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="fixed-effects.html"><a href="fixed-effects.html#two-way-fixed-effects"><i class="fa fa-check"></i><b>6.4</b> Two-way fixed effects</a></li>
+<li class="chapter" data-level="6.5" data-path="fixed-effects.html"><a href="fixed-effects.html#panel-data-alone-cant-deal-with-simultaneity"><i class="fa fa-check"></i><b>6.5</b> Panel data alone can’t deal with simultaneity</a></li>
+<li class="chapter" data-level="6.6" data-path="fixed-effects.html"><a href="fixed-effects.html#intepreting-within-relationships"><i class="fa fa-check"></i><b>6.6</b> Intepreting Within Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>7</b> Difference-in-Differences</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#line-plots"><i class="fa fa-check"></i><b>7.1</b> Line plots</a></li>
+<li class="chapter" data-level="7.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#difference-in-differences-example-cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>7.2</b> Difference-in-Differences Example: Cheng and Hoekstra (2013)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>7.2.1</b> Falsification tests</a></li>
+<li class="chapter" data-level="7.2.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>7.2.2</b> Deterrence</a></li>
+<li class="chapter" data-level="7.2.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>7.2.3</b> Homicide in Florida</a></li>
+<li class="chapter" data-level="7.2.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>7.2.4</b> Multistate Homicide Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>8</b> Synthetic Control</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="synthetic-control.html"><a href="synthetic-control.html#preliminaries-2"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.2" data-path="synthetic-control.html"><a href="synthetic-control.html#the-economic-cost-of-the-1990-german-reunification"><i class="fa fa-check"></i><b>8.2</b> The Economic Cost of the 1990 German Reunification</a></li>
+<li class="chapter" data-level="8.3" data-path="synthetic-control.html"><a href="synthetic-control.html#placebo-studies"><i class="fa fa-check"></i><b>8.3</b> Placebo Studies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -235,14 +257,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fixed-effects" class="section level1" number="7">
-<h1><span class="header-section-number"> 7</span> Fixed Effects</h1>
-<div id="preliminaries-1" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Preliminaries</h2>
+<div id="fixed-effects" class="section level1" number="6">
+<h1><span class="header-section-number"> 6</span> Fixed Effects</h1>
+<div id="preliminaries-1" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Preliminaries</h2>
 <p>These notes are based on <a href="https://nickch-k.github.io/EconometricsSlides/Week_06/Week_06_1_Within_Variation_and_Fixed_Effects.html#1">Nick Huntington-Klein’s lecture on Within Variation and Fixed Effects</a>. Check his video lecture <a href="https://www.youtube.com/watch?v=Af0eSTbjj_I&amp;t=889s">here</a>. In this exercise, we use data from <a href="https://www.ssc.wisc.edu/~munia/590/trunbull.pdf">Cornwell and Trumbuil (1993)</a>. This dataset <a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/CT1993.RDS">download here</a> comprehends 90 North Carolina counties during the period from 1981 to 1987. The table below describes the variables:</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-1">Table 7.1: </span>Variables’ Description
+<span id="tab:unnamed-chunk-1">Table 6.1: </span>Variables’ Description
 </caption>
 <thead>
 <tr>
@@ -387,8 +409,8 @@ All other variables starting with <code>w</code> represent wages in different se
 </table>
 <p>When a column’s name starts with <code>l</code>, that means the logarithm transformation was applied to the variable.</p>
 </div>
-<div id="between-variation" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Between variation</h2>
+<div id="between-variation" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Between variation</h2>
 <p>Reading the <code>CT1993.RDS</code> file and filtering by counties 1, 3, 23 and 91:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="fixed-effects.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="fixed-effects.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets&quot;</span>)</span>
@@ -410,11 +432,11 @@ All other variables starting with <code>w</code> represent wages in different se
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## RMSE: 0.004859   Adj. R2: 0.640563</code></pre>
 </div>
-<div id="within-variation" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Within variation</h2>
+<div id="within-variation" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Within variation</h2>
 <p>There are three ways to get estimates using the within variation. Let’s explore each one in more detail:</p>
-<div id="regress-the-demeaned-values-of-y_it-on-d_it" class="section level3" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></h3>
+<div id="regress-the-demeaned-values-of-y_it-on-d_it" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></h3>
 <p>The first step is to get the group means (i.e., average crime rate and the average probability of arrest for each county during 1981-1987). Then, take the difference of each observation and its group mean:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="fixed-effects.html#cb4-1" aria-hidden="true" tabindex="-1"></a>within<span class="ot">&lt;-</span>ct93_sub<span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="fixed-effects.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county)<span class="sc">%&gt;%</span></span>
@@ -443,8 +465,8 @@ All other variables starting with <code>w</code> represent wages in different se
 ## F-statistic: 0.5923 on 1 and 26 DF,  p-value: 0.4485</code></pre>
 <p>Differently from the between regression, the coefficient on the probability of arrest is negative (but not statistically significant).</p>
 </div>
-<div id="regress-y_it-on-d_it-and-county-unit-dummies" class="section level3" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</h3>
+<div id="regress-y_it-on-d_it-and-county-unit-dummies" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</h3>
 <p>The demeaning process might be exhaustive because you need to do it <strong>not only for the dependent variable but also for all the covariates you are using</strong>. One easy way to get the same result is to allow different intercepts for each county:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="fixed-effects.html#cb7-1" aria-hidden="true" tabindex="-1"></a>lsdv<span class="ot">&lt;-</span><span class="fu">lm</span>(crmrte<span class="sc">~-</span><span class="dv">1</span><span class="sc">+</span>prbarr<span class="sc">+</span><span class="fu">factor</span>(county), <span class="at">data=</span>ct93_sub)</span>
 <span id="cb7-2"><a href="fixed-effects.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lsdv)</span></code></pre></div>
@@ -471,8 +493,8 @@ All other variables starting with <code>w</code> represent wages in different se
 ## F-statistic: 532.8 on 5 and 23 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>This is what we call least squares dummy variables (LSDV) regression.</p>
 </div>
-<div id="regress-y_it-on-d_it-with-canned-fixed-effects-routine" class="section level3" number="7.3.3">
-<h3><span class="header-section-number">7.3.3</span> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</h3>
+<div id="regress-y_it-on-d_it-with-canned-fixed-effects-routine" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</h3>
 <p>When you have many fixed effects (sometimes thousands, sometimes millions), LSDV regression can be time-consuming and computationally inefficient. <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>-users have <a href="https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html#251_Adding_fixed-effects_to_non-linear_in_parameters_models">Fixest</a> as an option to perform estimations with multiple fixed effects at a breakneck pace:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="fixed-effects.html#cb9-1" aria-hidden="true" tabindex="-1"></a>fe<span class="ot">&lt;-</span><span class="fu">feols</span>(crmrte<span class="sc">~</span>prbarr<span class="sc">|</span>county, <span class="at">data=</span>ct93_sub)</span>
 <span id="cb9-2"><a href="fixed-effects.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe)</span></code></pre></div>
@@ -489,8 +511,8 @@ All other variables starting with <code>w</code> represent wages in different se
 <p>The estimated coefficient is the same <span class="math inline">\(-0.013923\)</span> in all the regressions above - what is different is the standard error from the demeaned and the last two regressions.</p>
 </div>
 </div>
-<div id="two-way-fixed-effects" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Two-way fixed effects</h2>
+<div id="two-way-fixed-effects" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Two-way fixed effects</h2>
 <p>A common approach is to add a fixed effect for the panel unit and a time-varying intercept to capture common time trends across units, i.e., to control for something that varies over time in the same way for all panel units. To do that, add <code>time</code> to the panel unit on the right side of the vertical bar <code>|</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="fixed-effects.html#cb11-1" aria-hidden="true" tabindex="-1"></a>twfe<span class="ot">&lt;-</span><span class="fu">feols</span>(crmrte<span class="sc">~</span>prbarr<span class="sc">|</span>county<span class="sc">+</span>year, <span class="at">data=</span>ct93_sub)</span>
 <span id="cb11-2"><a href="fixed-effects.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(twfe)</span></code></pre></div>
@@ -505,8 +527,8 @@ All other variables starting with <code>w</code> represent wages in different se
 ## RMSE: 0.001947     Adj. R2: 0.911743
 ##                  Within R2: 0.004485</code></pre>
 </div>
-<div id="panel-data-alone-cant-deal-with-simultaneity" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Panel data alone can’t deal with simultaneity</h2>
+<div id="panel-data-alone-cant-deal-with-simultaneity" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Panel data alone can’t deal with simultaneity</h2>
 <p>A two-way fixed effects regression between crime rate and police per capita deals with common time trends and time-invariant unobserved heterogeneity. However, TWFE does not address simultaneity:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fixed-effects.html#cb13-1" aria-hidden="true" tabindex="-1"></a>pol_crime<span class="ot">&lt;-</span><span class="fu">feols</span>(crmrte<span class="sc">~</span>polpc<span class="sc">|</span>county<span class="sc">+</span>year, <span class="at">data=</span>ct93)</span>
 <span id="cb13-2"><a href="fixed-effects.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pol_crime)</span></code></pre></div>
@@ -522,8 +544,8 @@ All other variables starting with <code>w</code> represent wages in different se
 ##                  Within R2: 0.226753</code></pre>
 <p>One can see that the coefficient on police per capita is positive and statistically significant. That positive association is most likely driven by counties with higher crime rates hiring more police officers per capita.</p>
 </div>
-<div id="intepreting-within-relationships" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Intepreting Within Relationships</h2>
+<div id="intepreting-within-relationships" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Intepreting Within Relationships</h2>
 <p>This regression replicates columns <code>between</code> and <code>within</code> in Table 3 in <a href="https://www.ssc.wisc.edu/~munia/590/trunbull.pdf">Cornwell and Trumbuil (1993)</a>. All the variables are in log, so the results are interpretable as elasticities.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="fixed-effects.html#cb15-1" aria-hidden="true" tabindex="-1"></a>full_between<span class="ot">&lt;-</span><span class="fu">feols</span>(lcrmrte<span class="sc">~</span>lprbarr<span class="sc">+</span>lprbconv<span class="sc">+</span>lprbpris<span class="sc">+</span>lavgsen<span class="sc">+</span>lpolpc<span class="sc">+</span></span>
 <span id="cb15-2"><a href="fixed-effects.html#cb15-2" aria-hidden="true" tabindex="-1"></a>                      ldensity<span class="sc">+</span>lpctymle<span class="sc">+</span>lwtuc<span class="sc">+</span>lwtrd<span class="sc">+</span>lwfir<span class="sc">+</span>lwser<span class="sc">+</span>lwmfg<span class="sc">+</span></span>
