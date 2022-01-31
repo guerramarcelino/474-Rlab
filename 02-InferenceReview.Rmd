@@ -129,14 +129,14 @@ mean(sample(1:6, size=2, replace=TRUE ))
 ```
 
 
-```{r}
+```{r hist-inf1}
 hist(replicate(500,mean(sample(1:6, size=2, replace=TRUE ))), main=" ", xlab = "Average of 2 rolls")
 ```
 
 
 Let's roll a die 100 times and repeat the process again, plotting the histogram:
 
-```{r}
+```{r hist-inf2}
 hist(replicate(500,mean(sample(1:6, size=100, replace=TRUE ))), main=" ", xlab = "Average of 100 rolls")
 ```
 
@@ -153,14 +153,14 @@ If $E(Y_{i})=\mu_{Y}$, with a large enough sample, the test statistic $t$ has a 
 
 For instance, suppose we measure health status with a dummy variable that takes one if healthy and 0 if sick. Also, assume that 20% of the population is sick. As you can see below, the distribution has two spikes: height .8  at the value one and height .2 at the value 0. The CLT tells us that, with enough data, the distribution of the t-stat is bell-shaped even though the distribution of the underlying data has only two values. 
 
-```{r}
+```{r hist-inf3}
 
 hist(sample(x  = 0:1, size = 1000000, replace = TRUE, prob = c(0.2, 0.8)), main=" ", xlab = "Health Status")
 ```
 
 To see that, let's first calculate $E(Y_{i})=0.8 \times 1 + 0.2 \times 0=0.8=\mu_{Y}$. From the population, we sample 10 and 100 values 100,000 times, calculate the respective t-stats $\frac{\bar{Y}-0.8}{\hat{SE}(\bar{Y})}$ and plot the distribution of those values:
 
-```{r}
+```{r hist-inf4}
 ## 10 values
 small<-replicate(100000,sample(x  = 0:1, size = 10, replace = TRUE, prob = c(0.2, 0.8)))
 
@@ -173,7 +173,7 @@ tstat[i,]<-(mean(small[,i])-.8)/sd(small[,i])*sqrt(10)
 hist(tstat,  main=" ", xlab="t-stat for the mean in a sample of size 10")
 ```
 
-```{r}
+```{r hist-inf5}
 ## 100 values
 big<-replicate(100000,sample(x  = 0:1, size = 100, replace = TRUE, prob = c(0.2, 0.8)))
 
