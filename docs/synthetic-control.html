@@ -454,11 +454,11 @@ Investment rate
 <span id="cb8-2"><a href="synthetic-control.html#cb8-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">Ylab =</span> <span class="st">&quot;Per capita GDP (PPP, 2002 USD)&quot;</span>, <span class="at">Xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
 <span id="cb8-3"><a href="synthetic-control.html#cb8-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">Ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">35000</span>), <span class="at">Legend =</span> <span class="fu">c</span>(<span class="st">&quot;West Germany&quot;</span>,<span class="st">&quot;Synthetic West Germany&quot;</span>), <span class="at">Legend.position =</span> <span class="st">&quot;bottomright&quot;</span>,</span>
 <span id="cb8-4"><a href="synthetic-control.html#cb8-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">tr.intake =</span> <span class="dv">1990</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="synthetic-control.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gaps.plot</span>(<span class="at">synth.res =</span> synth.out, <span class="at">dataprep.res =</span> dataprep.out,</span>
 <span id="cb9-2"><a href="synthetic-control.html#cb9-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">Ylab =</span> <span class="st">&quot;Per capita GDP (PPP, 2002 USD)&quot;</span>, <span class="at">Xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
 <span id="cb9-3"><a href="synthetic-control.html#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">tr.intake =</span> <span class="dv">1990</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="placebo-studies" class="section level2" number="8.3">
 <h2><span class="header-section-number">8.3</span> Placebo Studies</h2>
@@ -485,17 +485,17 @@ Investment rate
 <span id="cb10-21"><a href="synthetic-control.html#cb10-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">Ylab =</span> <span class="st">&quot;Per capita GDP (PPP, 2002 USD)&quot;</span>, <span class="at">Xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
 <span id="cb10-22"><a href="synthetic-control.html#cb10-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">Ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">35000</span>), <span class="at">Legend =</span> <span class="fu">c</span>(<span class="st">&quot;West Germany&quot;</span>,<span class="st">&quot;Synthetic West Germany&quot;</span>), <span class="at">Legend.position =</span> <span class="st">&quot;bottomright&quot;</span>,</span>
 <span id="cb10-23"><a href="synthetic-control.html#cb10-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">tr.intake =</span> <span class="dv">1975</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="synthetic-control.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SCtools)</span>
 <span id="cb11-2"><a href="synthetic-control.html#cb11-2" aria-hidden="true" tabindex="-1"></a>placebo <span class="ot">&lt;-</span> <span class="fu">generate.placebos</span>(<span class="at">dataprep.out =</span> dataprep.out,</span>
 <span id="cb11-3"><a href="synthetic-control.html#cb11-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">synth.out =</span> synth.out, <span class="at">strategy =</span> <span class="st">&quot;multiprocess&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="synthetic-control.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_placebos</span>(placebo)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="synthetic-control.html#cb13-1" aria-hidden="true" tabindex="-1"></a>test_out <span class="ot">&lt;-</span> <span class="fu">mspe.test</span>(placebo)</span>
 <span id="cb13-2"><a href="synthetic-control.html#cb13-2" aria-hidden="true" tabindex="-1"></a>test_out<span class="sc">$</span>p.val</span></code></pre></div>
 <pre><code>## [1] 0.05882353</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="synthetic-control.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.plot</span>(<span class="at">tdf =</span> placebo)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
