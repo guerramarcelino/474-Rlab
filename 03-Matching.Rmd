@@ -35,7 +35,7 @@ Create a dummy variable `first_class` that takes 1 if `class==1` and 0 otherwise
 ```{r}
 library(tidyverse)
 
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 titanic<-readRDS("titanic.RDS")
 titanic$first_class<-ifelse(titanic$class==1,"Upper Deck","Lower Decks")
 titanic%>%group_by(first_class)%>%summarize(survival_rate=mean(survived))
@@ -103,7 +103,7 @@ First, read the `.RDS` file. Then, summarize the baseline characteristics to che
 ```{r}
 library(tidyverse)
 
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 exper_data<-readRDS("NSW_EXPER.RDS")
 exper_data%>%group_by(treat)%>%summarize(Age=mean(age), Education=mean(educ),
                                      Black=mean(black), Hispanic=mean(hisp),
@@ -129,7 +129,7 @@ The causal effect of the NSW job-training program is $1,794.
 What if we replace the experimental control group with a random sample of Americans from the `Current Population Survey`? Download this data [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/NSW_NE.RDS) and let's see how it goes.
 
 ```{r}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 nonexper_data<-readRDS("NSW_NE.RDS")
 
 nonexper_data%>%group_by(treat)%>%summarize(Age=mean(age), Education=mean(educ),
@@ -238,7 +238,7 @@ Besides nearest-neighbor matching, there are several other ways to get average t
 The first step is to generate the propensity scores using the logit regression:
 
 ```{r}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 nonexper_data<-readRDS("NSW_NE.RDS")
 
 # Logit model to predict probability of treatment

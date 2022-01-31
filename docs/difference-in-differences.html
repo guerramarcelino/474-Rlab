@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 7 Difference-in-Differences | Econometrics of Policy Evaluation</title>
+  <meta name="description" content="ECON 474 R-lab notes" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 7 Difference-in-Differences | Econometrics of Policy Evaluation" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://guerramarcelino.github.io/Econ474/474-Rlabs/" />
+  
+  <meta property="og:description" content="ECON 474 R-lab notes" />
+  <meta name="github-repo" content="guerramarcelino/474-Rlab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 7 Difference-in-Differences | Econometrics of Policy Evaluation" />
+  
+  <meta name="twitter:description" content="ECON 474 R-lab notes" />
+  
+
+<meta name="author" content="Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu" />
+
+
+<meta name="date" content="2022-01-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fixed-effects.html"/>
+<link rel="next" href="synthetic-control.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ECON 474 @UIUC</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a></li>
+<li class="chapter" data-level="1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html"><i class="fa fa-check"></i><b>1</b> RAND Health Insurance Experiment</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#working-with-.rds-files"><i class="fa fa-check"></i><b>1.1</b> Working with .RDS files</a></li>
+<li class="chapter" data-level="1.2" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#summarizing-data"><i class="fa fa-check"></i><b>1.2</b> Summarizing data</a></li>
+<li class="chapter" data-level="1.3" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#checking-for-balance"><i class="fa fa-check"></i><b>1.3</b> Checking for Balance</a></li>
+<li class="chapter" data-level="1.4" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#results-of-the-experiment"><i class="fa fa-check"></i><b>1.4</b> Results of the Experiment</a></li>
+<li class="chapter" data-level="1.5" data-path="rand-health-insurance-experiment.html"><a href="rand-health-insurance-experiment.html#equivalence-of-differences-in-means-and-regression"><i class="fa fa-check"></i><b>1.5</b> Equivalence of Differences in Means and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="inference-review.html"><a href="inference-review.html"><i class="fa fa-check"></i><b>2</b> Inference Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="inference-review.html"><a href="inference-review.html#flipping-coins"><i class="fa fa-check"></i><b>2.1</b> Flipping coins</a></li>
+<li class="chapter" data-level="2.2" data-path="inference-review.html"><a href="inference-review.html#sample-mean"><i class="fa fa-check"></i><b>2.2</b> Sample mean</a></li>
+<li class="chapter" data-level="2.3" data-path="inference-review.html"><a href="inference-review.html#measuring-variability"><i class="fa fa-check"></i><b>2.3</b> Measuring Variability</a></li>
+<li class="chapter" data-level="2.4" data-path="inference-review.html"><a href="inference-review.html#central-limit-theorem-clt"><i class="fa fa-check"></i><b>2.4</b> Central Limit Theorem (CLT)</a></li>
+<li class="chapter" data-level="2.5" data-path="inference-review.html"><a href="inference-review.html#the-t-statistic-and-the-clt"><i class="fa fa-check"></i><b>2.5</b> The t-Statistic and the CLT</a></li>
+<li class="chapter" data-level="2.6" data-path="inference-review.html"><a href="inference-review.html#confidence-interval"><i class="fa fa-check"></i><b>2.6</b> Confidence Interval</a></li>
+<li class="chapter" data-level="2.7" data-path="inference-review.html"><a href="inference-review.html#hypothesis-testing"><i class="fa fa-check"></i><b>2.7</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html"><i class="fa fa-check"></i><b>3</b> Subclassification and Matching</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#subclassification-example"><i class="fa fa-check"></i><b>3.1</b> Subclassification Example</a></li>
+<li class="chapter" data-level="3.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#propensity-score-example"><i class="fa fa-check"></i><b>3.2</b> Propensity Score Example</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#nearest-neighbor-matching"><i class="fa fa-check"></i><b>3.2.1</b> Nearest-Neighbor Matching</a></li>
+<li class="chapter" data-level="3.2.2" data-path="subclassification-and-matching.html"><a href="subclassification-and-matching.html#weighting-on-the-propensity-score"><i class="fa fa-check"></i><b>3.2.2</b> Weighting on the Propensity Score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html"><i class="fa fa-check"></i><b>4</b> NonLinear Regression</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#generalized-linear-models-glm"><i class="fa fa-check"></i><b>4.1</b> Generalized Linear Models (GLM)</a></li>
+<li class="chapter" data-level="4.2" data-path="nonlinear-regression.html"><a href="nonlinear-regression.html#a-taste-of-machine-learning"><i class="fa fa-check"></i><b>4.2</b> A Taste of Machine Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="instrumental-variables.html"><a href="instrumental-variables.html"><i class="fa fa-check"></i><b>5</b> Instrumental Variables</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#preliminaries"><i class="fa fa-check"></i><b>5.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="5.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#ols-results"><i class="fa fa-check"></i><b>5.2</b> OLS results</a></li>
+<li class="chapter" data-level="5.3" data-path="instrumental-variables.html"><a href="instrumental-variables.html#wald-estimator"><i class="fa fa-check"></i><b>5.3</b> Wald Estimator</a></li>
+<li class="chapter" data-level="5.4" data-path="instrumental-variables.html"><a href="instrumental-variables.html#sls-estimates"><i class="fa fa-check"></i><b>5.4</b> 2SLS Estimates</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="instrumental-variables.html"><a href="instrumental-variables.html#manually-getting-the-coefficient-dont-do-it"><i class="fa fa-check"></i><b>5.4.1</b> Manually getting the coefficient (don’t do it!)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="instrumental-variables.html"><a href="instrumental-variables.html#the-correct-way"><i class="fa fa-check"></i><b>5.4.2</b> The correct way</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>6</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="fixed-effects.html"><a href="fixed-effects.html#preliminaries-1"><i class="fa fa-check"></i><b>6.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.2" data-path="fixed-effects.html"><a href="fixed-effects.html#between-variation"><i class="fa fa-check"></i><b>6.2</b> Between variation</a></li>
+<li class="chapter" data-level="6.3" data-path="fixed-effects.html"><a href="fixed-effects.html#within-variation"><i class="fa fa-check"></i><b>6.3</b> Within variation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-the-demeaned-values-of-y_it-on-d_it"><i class="fa fa-check"></i><b>6.3.1</b> Regress the demeaned values of <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-and-county-unit-dummies"><i class="fa fa-check"></i><b>6.3.2</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> and county unit dummies</a></li>
+<li class="chapter" data-level="6.3.3" data-path="fixed-effects.html"><a href="fixed-effects.html#regress-y_it-on-d_it-with-canned-fixed-effects-routine"><i class="fa fa-check"></i><b>6.3.3</b> Regress <span class="math inline">\(Y_{it}\)</span> on <span class="math inline">\(D_{it}\)</span> with canned fixed effects routine</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="fixed-effects.html"><a href="fixed-effects.html#two-way-fixed-effects"><i class="fa fa-check"></i><b>6.4</b> Two-way fixed effects</a></li>
+<li class="chapter" data-level="6.5" data-path="fixed-effects.html"><a href="fixed-effects.html#panel-data-alone-cant-deal-with-simultaneity"><i class="fa fa-check"></i><b>6.5</b> Panel data alone can’t deal with simultaneity</a></li>
+<li class="chapter" data-level="6.6" data-path="fixed-effects.html"><a href="fixed-effects.html#intepreting-within-relationships"><i class="fa fa-check"></i><b>6.6</b> Intepreting Within Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>7</b> Difference-in-Differences</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#line-plots"><i class="fa fa-check"></i><b>7.1</b> Line plots</a></li>
+<li class="chapter" data-level="7.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#difference-in-differences-example-cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>7.2</b> Difference-in-Differences Example: Cheng and Hoekstra (2013)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>7.2.1</b> Falsification tests</a></li>
+<li class="chapter" data-level="7.2.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>7.2.2</b> Deterrence</a></li>
+<li class="chapter" data-level="7.2.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>7.2.3</b> Homicide in Florida</a></li>
+<li class="chapter" data-level="7.2.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>7.2.4</b> Multistate Homicide Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>8</b> Synthetic Control</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="synthetic-control.html"><a href="synthetic-control.html#preliminaries-2"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.2" data-path="synthetic-control.html"><a href="synthetic-control.html#the-economic-cost-of-the-1990-german-reunification"><i class="fa fa-check"></i><b>8.2</b> The Economic Cost of the 1990 German Reunification</a></li>
+<li class="chapter" data-level="8.3" data-path="synthetic-control.html"><a href="synthetic-control.html#placebo-studies"><i class="fa fa-check"></i><b>8.3</b> Placebo Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometrics of Policy Evaluation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="difference-in-differences" class="section level1" number="7">
+<h1><span class="header-section-number"> 7</span> Difference-in-Differences</h1>
+<div id="line-plots" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Line plots</h2>
+<p>The main identification assumption in the DinD framework is <em>common trends</em>. One way to see whether the assumption is reasonable in your setting is through line plots. The first step is to show how the outcomes in both treatment and control groups evolve - preferable with multiple pre-intervention periods.</p>
+<p>Let’s replicate Figure 5.2 from Angrist and Pischke (2014) and see how trends in bank failures in Mississippi evolved before, during, and after the Caldwell crisis. Download the data <a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/banks.RDS">here</a>. In this exercise, we use the packages <code>ggplot2</code> and <code>ggthemes</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="difference-in-differences.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you don&#39;t have the packages, start with install.packages(&quot;ggplot2&quot;) and</span></span>
+<span id="cb1-2"><a href="difference-in-differences.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;ggthemes&quot;)</span></span>
+<span id="cb1-3"><a href="difference-in-differences.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="difference-in-differences.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-5"><a href="difference-in-differences.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="difference-in-differences.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/datasets&quot;</span>)</span>
+<span id="cb1-7"><a href="difference-in-differences.html#cb1-7" aria-hidden="true" tabindex="-1"></a>banks<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;banks.RDS&quot;</span>)</span>
+<span id="cb1-8"><a href="difference-in-differences.html#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="difference-in-differences.html#cb1-9" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb1-10"><a href="difference-in-differences.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">6th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#336666&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-11"><a href="difference-in-differences.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">8th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#8abbd0&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-12"><a href="difference-in-differences.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of banks in business&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-13"><a href="difference-in-differences.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="difference-in-differences.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_economist</span>()<span class="sc">+</span></span>
+<span id="cb1-15"><a href="difference-in-differences.html#cb1-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb1-16"><a href="difference-in-differences.html#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb1-17"><a href="difference-in-differences.html#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="difference-in-differences.html#cb1-18" aria-hidden="true" tabindex="-1"></a>plot1</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Instead of using <code>geom_line()</code> for each district, you can reshape the dataset. That will easily allow you to have legends for each line:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="difference-in-differences.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb2-2"><a href="difference-in-differences.html#cb2-2" aria-hidden="true" tabindex="-1"></a>panel_banks<span class="ot">&lt;-</span><span class="fu">melt</span>(banks, <span class="at">id.var=</span><span class="st">&#39;year&#39;</span>)</span>
+<span id="cb2-3"><a href="difference-in-differences.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(panel_banks,<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   year     variable value
+## 1 1929 6th district   141
+## 2 1930 6th district   135
+## 3 1931 6th district   121
+## 4 1932 6th district   113
+## 5 1933 6th district   102</code></pre>
+<p>Then, you apply almost the same code and get the plot with legends:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="difference-in-differences.html#cb4-1" aria-hidden="true" tabindex="-1"></a>plot2<span class="ot">&lt;-</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb4-2"><a href="difference-in-differences.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>panel_banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>value, <span class="at">col=</span>variable),<span class="at">size=</span><span class="fl">1.4</span>)<span class="sc">+</span></span>
+<span id="cb4-3"><a href="difference-in-differences.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#8abbd0&quot;</span>, <span class="st">&quot;#336666&quot;</span>))<span class="sc">+</span></span>
+<span id="cb4-4"><a href="difference-in-differences.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of banks in business&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-5"><a href="difference-in-differences.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="difference-in-differences.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb4-7"><a href="difference-in-differences.html#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb4-8"><a href="difference-in-differences.html#cb4-8" aria-hidden="true" tabindex="-1"></a>plot2</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><code>ggplot2</code> allows you to customize your graphs in many ways. For example, if you want different line types:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="difference-in-differences.html#cb5-1" aria-hidden="true" tabindex="-1"></a>plot3<span class="ot">&lt;-</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb5-2"><a href="difference-in-differences.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>panel_banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>value, <span class="at">col=</span>variable, <span class="at">linetype =</span> variable),<span class="at">size=</span><span class="fl">1.4</span>)<span class="sc">+</span></span>
+<span id="cb5-3"><a href="difference-in-differences.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#8abbd0&quot;</span>, <span class="st">&quot;#336666&quot;</span>))<span class="sc">+</span></span>
+<span id="cb5-4"><a href="difference-in-differences.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>))<span class="sc">+</span></span>
+<span id="cb5-5"><a href="difference-in-differences.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of banks in business&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-6"><a href="difference-in-differences.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="difference-in-differences.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb5-8"><a href="difference-in-differences.html#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb5-9"><a href="difference-in-differences.html#cb5-9" aria-hidden="true" tabindex="-1"></a>plot3</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Check also <code>ggthemes</code> <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a>. There you have plenty of options for the plot background.</p>
+</div>
+<div id="difference-in-differences-example-cheng-and-hoekstra-2013" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Difference-in-Differences Example: Cheng and Hoekstra (2013)</h2>
+<p>These notes are mostly based on <a href="https://mixtape.scunning.com/difference-in-differences.html?panelset6=r-code7&amp;panelset4=r-code5&amp;panelset7=r-code8&amp;panelset5=r-code6#replicating-cheng2013-sort-of">Cunningham (2021)</a>. This exercise replicates some of the results of <a href="http://jhr.uwpress.org/content/48/3/821.short">Cheng and Hoekstra (2013)</a>. The dataset (<a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/castle.RDS">download here</a>) comprehends 50 U.S states during the period 2000-2010. The authors aimed to evaluate the effect of the staggered adoption of “stand your ground” laws on crime. Check lecture notes for discussion <a href="https://guerramarcelino.github.io/Econ474/Lectures/Lec6/lec6?panelset6=did-regression3&amp;panelset7=2x2-difference-in-differences2&amp;panelset8=regression-results4&amp;panelset9=did-assumptions2&amp;panelset10=threats-to-validity2&amp;panelset11=deterrence2#31">here</a>.</p>
+<p>The variables are described below:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-5">Table 7.1: </span>Variables Description
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Definition
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+state
+</td>
+<td style="text-align:left;width: 12cm; ">
+U.S. State
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:left;width: 12cm; ">
+Year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+region
+</td>
+<td style="text-align:left;width: 12cm; ">
+Census Region. 1 if northeast, 2 if midwest, 3 if south and 4 if west
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+treated
+</td>
+<td style="text-align:left;width: 12cm; ">
+1 if state is treated at any point from 2000 and 2010
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cdl
+</td>
+<td style="text-align:left;width: 12cm; ">
+Treatment variable. Takes values from 0 to 1, depending on which month of the year the new law was passed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_motor
+</td>
+<td style="text-align:left;width: 12cm; ">
+Motor theft rate (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_larceny
+</td>
+<td style="text-align:left;width: 12cm; ">
+Larceny rate (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_robbery
+</td>
+<td style="text-align:left;width: 12cm; ">
+Robbery rate (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_assault
+</td>
+<td style="text-align:left;width: 12cm; ">
+Aggravated Assault rate (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_homicide
+</td>
+<td style="text-align:left;width: 12cm; ">
+Murder rate (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+blackm_15_24
+</td>
+<td style="text-align:left;width: 12cm; ">
+% of black male aged 15-24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+whitem_15_24
+</td>
+<td style="text-align:left;width: 12cm; ">
+% of white male aged 15-24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+blackm_25_44
+</td>
+<td style="text-align:left;width: 12cm; ">
+% of black male aged 25-44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+whitem_25_44
+</td>
+<td style="text-align:left;width: 12cm; ">
+% of white male aged 25-44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_exp_subsidy
+</td>
+<td style="text-align:left;width: 12cm; ">
+Government spending (assistance and subsidies)
+per capita (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_exp_pubwelfare
+</td>
+<td style="text-align:left;width: 12cm; ">
+Government spending (public welfare) per
+capita (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_police
+</td>
+<td style="text-align:left;width: 12cm; ">
+Police per 100,000 residents (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unemployrt
+</td>
+<td style="text-align:left;width: 12cm; ">
+Unemployment Rate (%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+poverty
+</td>
+<td style="text-align:left;width: 12cm; ">
+Poverty Rate (%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_income
+</td>
+<td style="text-align:left;width: 12cm; ">
+Median Household Income ($) (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_prisoner
+</td>
+<td style="text-align:left;width: 12cm; ">
+Prisoners per 100,000 residents (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+l_lagprisoner
+</td>
+<td style="text-align:left;width: 12cm; ">
+Lag prisoners per 100,000 residents (in log)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+popwt
+</td>
+<td style="text-align:left;width: 12cm; ">
+State Population (used in the weighted regression)
+</td>
+</tr>
+</tbody>
+</table>
+<div id="falsification-tests" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Falsification tests</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="difference-in-differences.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/datasets&quot;</span>)</span>
+<span id="cb6-2"><a href="difference-in-differences.html#cb6-2" aria-hidden="true" tabindex="-1"></a>castle<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;castle.RDS&quot;</span>)</span>
+<span id="cb6-3"><a href="difference-in-differences.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb6-4"><a href="difference-in-differences.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-5"><a href="difference-in-differences.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE</span></span>
+<span id="cb6-6"><a href="difference-in-differences.html#cb6-6" aria-hidden="true" tabindex="-1"></a>reg_motor1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-7"><a href="difference-in-differences.html#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="difference-in-differences.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects</span></span>
+<span id="cb6-9"><a href="difference-in-differences.html#cb6-9" aria-hidden="true" tabindex="-1"></a>reg_motor2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-10"><a href="difference-in-differences.html#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="difference-in-differences.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects, additional controls and State-Specific Linear Time trends</span></span>
+<span id="cb6-12"><a href="difference-in-differences.html#cb6-12" aria-hidden="true" tabindex="-1"></a>reg_motor3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb6-13"><a href="difference-in-differences.html#cb6-13" aria-hidden="true" tabindex="-1"></a>              whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb6-14"><a href="difference-in-differences.html#cb6-14" aria-hidden="true" tabindex="-1"></a>              unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb6-15"><a href="difference-in-differences.html#cb6-15" aria-hidden="true" tabindex="-1"></a>              state<span class="sc">:</span>year</span>
+<span id="cb6-16"><a href="difference-in-differences.html#cb6-16" aria-hidden="true" tabindex="-1"></a>              <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-17"><a href="difference-in-differences.html#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="difference-in-differences.html#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_motor1,reg_motor2,reg_motor3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb6-19"><a href="difference-in-differences.html#cb6-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb6-20"><a href="difference-in-differences.html#cb6-20" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                        reg_motor1      reg_motor2         reg_motor3
+## Dependent Var.:           l_motor         l_motor            l_motor
+##                                                                     
+## cdl              0.0766* (0.0413) 0.0138 (0.0450)   -0.0037 (0.0367)
+## blackm_15_24                                       -0.0952* (0.0487)
+## whitem_15_24                                         0.0046 (0.0155)
+## blackm_25_44                                       0.0593** (0.0285)
+## whitem_25_44                                        -0.0031 (0.0069)
+## l_exp_subsidy                                       -0.0144 (0.0309)
+## l_exp_pubwelfare                                    -0.0527 (0.0703)
+## l_police                                             0.0049 (0.0372)
+## unemployrt                                        -0.0340** (0.0152)
+## poverty                                             -0.0010 (0.0114)
+## l_income                                            -0.1193 (0.1288)
+## l_prisoner                                          -0.0066 (0.1831)
+## l_lagprisoner                                       -0.2187 (0.2102)
+## Fixed-Effects:   ---------------- --------------- ------------------
+## state                         Yes             Yes                Yes
+## year                          Yes             Yes                Yes
+## region^year                    No             Yes                Yes
+## ________________ ________________ _______________ __________________
+## S.E.: Clustered         by: state       by: state          by: state
+## Observations                  550             550                550
+## R2                        0.95815         0.96851            0.98604
+## Within R2                 0.02611         0.00085            0.55696</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="difference-in-differences.html#cb8-1" aria-hidden="true" tabindex="-1"></a>reg_lar1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb8-2"><a href="difference-in-differences.html#cb8-2" aria-hidden="true" tabindex="-1"></a>reg_lar2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb8-3"><a href="difference-in-differences.html#cb8-3" aria-hidden="true" tabindex="-1"></a>reg_lar3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb8-4"><a href="difference-in-differences.html#cb8-4" aria-hidden="true" tabindex="-1"></a>              whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb8-5"><a href="difference-in-differences.html#cb8-5" aria-hidden="true" tabindex="-1"></a>              unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb8-6"><a href="difference-in-differences.html#cb8-6" aria-hidden="true" tabindex="-1"></a>              state<span class="sc">:</span>year</span>
+<span id="cb8-7"><a href="difference-in-differences.html#cb8-7" aria-hidden="true" tabindex="-1"></a>            <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39;, &#39;stateWest Virginia:year&#39; and 2 others have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="difference-in-differences.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_lar1,reg_lar2,reg_lar3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb10-2"><a href="difference-in-differences.html#cb10-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb10-3"><a href="difference-in-differences.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                         reg_lar1        reg_lar2          reg_lar3
+## Dependent Var.:        l_larceny       l_larceny         l_larceny
+##                                                                   
+## cdl              0.0075 (0.0227) 0.0015 (0.0208)  -0.0137 (0.0231)
+## blackm_15_24                                      -0.0489 (0.0368)
+## whitem_15_24                                      -0.0022 (0.0105)
+## blackm_25_44                                     0.0492** (0.0230)
+## whitem_25_44                                       0.0018 (0.0043)
+## l_exp_subsidy                                     -0.0056 (0.0144)
+## l_exp_pubwelfare                                   0.0485 (0.0318)
+## l_police                                          -0.0203 (0.0179)
+## unemployrt                                        -0.0010 (0.0061)
+## poverty                                            0.0033 (0.0073)
+## l_income                                           0.0076 (0.0738)
+## l_prisoner                                        -0.1146 (0.0780)
+## l_lagprisoner                                      0.0311 (0.0987)
+## Fixed-Effects:   --------------- --------------- -----------------
+## state                        Yes             Yes               Yes
+## year                         Yes             Yes               Yes
+## region^year                   No             Yes               Yes
+## ________________ _______________ _______________ _________________
+## S.E.: Clustered        by: state       by: state         by: state
+## Observations                 550             550               550
+## R2                       0.94217         0.96118           0.98078
+## Within R2                0.00096         3.97e-5           0.50489</code></pre>
+</div>
+<div id="deterrence" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Deterrence</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="difference-in-differences.html#cb12-1" aria-hidden="true" tabindex="-1"></a>reg_rob1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb12-2"><a href="difference-in-differences.html#cb12-2" aria-hidden="true" tabindex="-1"></a>reg_rob2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb12-3"><a href="difference-in-differences.html#cb12-3" aria-hidden="true" tabindex="-1"></a>reg_rob3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb12-4"><a href="difference-in-differences.html#cb12-4" aria-hidden="true" tabindex="-1"></a>              whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb12-5"><a href="difference-in-differences.html#cb12-5" aria-hidden="true" tabindex="-1"></a>              unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb12-6"><a href="difference-in-differences.html#cb12-6" aria-hidden="true" tabindex="-1"></a>              state<span class="sc">:</span>year</span>
+<span id="cb12-7"><a href="difference-in-differences.html#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39;, &#39;stateWest Virginia:year&#39; and 2 others have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="difference-in-differences.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_rob1,reg_rob2,reg_rob3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb14-2"><a href="difference-in-differences.html#cb14-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb14-3"><a href="difference-in-differences.html#cb14-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                         reg_rob1        reg_rob2           reg_rob3
+## Dependent Var.:        l_robbery       l_robbery          l_robbery
+##                                                                    
+## cdl              0.0448 (0.0331) 0.0320 (0.0426)    0.0267 (0.0303)
+## blackm_15_24                                     -0.2014** (0.0845)
+## whitem_15_24                                        0.0103 (0.0230)
+## blackm_25_44                                      0.1625** (0.0735)
+## whitem_25_44                                       -0.0121 (0.0109)
+## l_exp_subsidy                                       0.0061 (0.0261)
+## l_exp_pubwelfare                                   -0.0798 (0.0718)
+## l_police                                            0.0132 (0.0305)
+## unemployrt                                         -0.0101 (0.0103)
+## poverty                                            -0.0095 (0.0116)
+## l_income                                            0.0391 (0.1221)
+## l_prisoner                                          0.0453 (0.1845)
+## l_lagprisoner                                     -0.3073* (0.1576)
+## Fixed-Effects:   --------------- --------------- ------------------
+## state                        Yes             Yes                Yes
+## year                         Yes             Yes                Yes
+## region^year                   No             Yes                Yes
+## ________________ _______________ _______________ __________________
+## S.E.: Clustered        by: state       by: state          by: state
+## Observations                 550             550                550
+## R2                       0.98516         0.98620            0.99273
+## Within R2                0.01156         0.00467            0.47609</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="difference-in-differences.html#cb16-1" aria-hidden="true" tabindex="-1"></a>reg_aslt1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb16-2"><a href="difference-in-differences.html#cb16-2" aria-hidden="true" tabindex="-1"></a>reg_aslt2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb16-3"><a href="difference-in-differences.html#cb16-3" aria-hidden="true" tabindex="-1"></a>reg_aslt3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb16-4"><a href="difference-in-differences.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                  whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb16-5"><a href="difference-in-differences.html#cb16-5" aria-hidden="true" tabindex="-1"></a>                  unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb16-6"><a href="difference-in-differences.html#cb16-6" aria-hidden="true" tabindex="-1"></a>                  state<span class="sc">:</span>year</span>
+<span id="cb16-7"><a href="difference-in-differences.html#cb16-7" aria-hidden="true" tabindex="-1"></a>                <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39;, &#39;stateWest Virginia:year&#39; and 2 others have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="difference-in-differences.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_aslt1,reg_aslt2,reg_aslt3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb18-2"><a href="difference-in-differences.html#cb18-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb18-3"><a href="difference-in-differences.html#cb18-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                        reg_aslt1       reg_aslt2          reg_aslt3
+## Dependent Var.:        l_assault       l_assault          l_assault
+##                                                                    
+## cdl              0.0555 (0.0604) 0.0698 (0.0638)    0.0317 (0.0386)
+## blackm_15_24                                        0.0895 (0.0681)
+## whitem_15_24                                       -0.0456 (0.0346)
+## blackm_25_44                                       -0.0567 (0.0343)
+## whitem_25_44                                        0.0103 (0.0115)
+## l_exp_subsidy                                      -0.0096 (0.0260)
+## l_exp_pubwelfare                                    0.0603 (0.0404)
+## l_police                                         0.1029*** (0.0232)
+## unemployrt                                          0.0097 (0.0083)
+## poverty                                            -0.0068 (0.0099)
+## l_income                                            0.0120 (0.1117)
+## l_prisoner                                         -0.0065 (0.1441)
+## l_lagprisoner                                      -0.0126 (0.1377)
+## Fixed-Effects:   --------------- --------------- ------------------
+## state                        Yes             Yes                Yes
+## year                         Yes             Yes                Yes
+## region^year                   No             Yes                Yes
+## ________________ _______________ _______________ __________________
+## S.E.: Clustered        by: state       by: state          by: state
+## Observations                 550             550                550
+## R2                       0.94615         0.95273            0.98960
+## Within R2                0.01076         0.01415            0.78305</code></pre>
+</div>
+<div id="homicide-in-florida" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Homicide in Florida</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="difference-in-differences.html#cb20-1" aria-hidden="true" tabindex="-1"></a>florida<span class="ot">&lt;-</span>castle<span class="sc">%&gt;%</span><span class="fu">filter</span>(state<span class="sc">==</span><span class="st">&quot;Florida&quot;</span><span class="sc">|</span>treated<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb20-2"><a href="difference-in-differences.html#cb20-2" aria-hidden="true" tabindex="-1"></a>florida<span class="ot">&lt;-</span>florida<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">treat=</span><span class="fu">ifelse</span>(state<span class="sc">==</span><span class="st">&quot;Florida&quot;</span>,<span class="st">&quot;Florida&quot;</span>,<span class="st">&quot;Control Group&quot;</span>))</span>
+<span id="cb20-3"><a href="difference-in-differences.html#cb20-3" aria-hidden="true" tabindex="-1"></a>plot<span class="ot">&lt;-</span>florida<span class="sc">%&gt;%</span><span class="fu">group_by</span>(treat, year)<span class="sc">%&gt;%</span><span class="fu">summarize</span>(<span class="at">Homicide=</span><span class="fu">mean</span>(l_homicide))</span>
+<span id="cb20-4"><a href="difference-in-differences.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="difference-in-differences.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb20-6"><a href="difference-in-differences.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb20-7"><a href="difference-in-differences.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>plot,</span>
+<span id="cb20-8"><a href="difference-in-differences.html#cb20-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>Homicide, <span class="at">col=</span>treat),</span>
+<span id="cb20-9"><a href="difference-in-differences.html#cb20-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">size=</span><span class="fl">1.4</span>)<span class="sc">+</span></span>
+<span id="cb20-10"><a href="difference-in-differences.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_fivethirtyeight</span>(<span class="st">&quot;Treatment Status&quot;</span>)<span class="sc">+</span></span>
+<span id="cb20-11"><a href="difference-in-differences.html#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span></span>
+<span id="cb20-12"><a href="difference-in-differences.html#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Homicide (in log)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb20-13"><a href="difference-in-differences.html#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2005</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
+<span id="cb20-14"><a href="difference-in-differences.html#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2003</span>, <span class="dv">2005</span>, <span class="dv">2008</span>, <span class="dv">2010</span>))<span class="sc">+</span></span>
+<span id="cb20-15"><a href="difference-in-differences.html#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb20-16"><a href="difference-in-differences.html#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="difference-in-differences.html#cb21-1" aria-hidden="true" tabindex="-1"></a>reg_homic1_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
+<span id="cb21-2"><a href="difference-in-differences.html#cb21-2" aria-hidden="true" tabindex="-1"></a>reg_homic2_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
+<span id="cb21-3"><a href="difference-in-differences.html#cb21-3" aria-hidden="true" tabindex="-1"></a>reg_homic3_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb21-4"><a href="difference-in-differences.html#cb21-4" aria-hidden="true" tabindex="-1"></a>                  whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb21-5"><a href="difference-in-differences.html#cb21-5" aria-hidden="true" tabindex="-1"></a>                  unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb21-6"><a href="difference-in-differences.html#cb21-6" aria-hidden="true" tabindex="-1"></a>                  state<span class="sc">:</span>year</span>
+<span id="cb21-7"><a href="difference-in-differences.html#cb21-7" aria-hidden="true" tabindex="-1"></a>                <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39;, &#39;stateVirginia:year&#39; and 2 others have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="difference-in-differences.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb23-2"><a href="difference-in-differences.html#cb23-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb23-3"><a href="difference-in-differences.html#cb23-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                       reg_homic1_fl   reg_homic2_fl       reg_homic3_fl
+## Dependent Var.:          l_homicide      l_homicide          l_homicide
+##                                                                        
+## cdl              0.1376*** (0.0353) 0.0457 (0.1134)   0.2674** (0.1192)
+## blackm_15_24                                           -0.0366 (0.1948)
+## whitem_15_24                                            0.1264 (0.0793)
+## blackm_25_44                                            0.0710 (0.1585)
+## whitem_25_44                                        -0.0496*** (0.0164)
+## l_exp_subsidy                                           0.0530 (0.0607)
+## l_exp_pubwelfare                                      0.4054** (0.1766)
+## l_police                                                0.2374 (0.3583)
+## unemployrt                                            0.0489** (0.0227)
+## poverty                                              -0.0706** (0.0334)
+## l_income                                              -0.6636* (0.3297)
+## l_prisoner                                           -1.034*** (0.3533)
+## l_lagprisoner                                           0.1821 (0.3755)
+## Fixed-Effects:   ------------------ --------------- -------------------
+## state                           Yes             Yes                 Yes
+## year                            Yes             Yes                 Yes
+## region^year                      No             Yes                 Yes
+## ________________ __________________ _______________ ___________________
+## S.E.: Clustered           by: state       by: state           by: state
+## Observations                    330             330                 330
+## R2                          0.91563         0.92657             0.95739
+## Within R2                   0.00515         0.00057             0.42002</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="difference-in-differences.html#cb25-1" aria-hidden="true" tabindex="-1"></a>florida_plot <span class="ot">=</span> <span class="fu">feols</span>(l_homicide<span class="sc">~</span><span class="fu">i</span>(treated, year, <span class="dv">2004</span>)<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
+<span id="cb25-2"><a href="difference-in-differences.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(florida_plot)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="multistate-homicide-regression" class="section level3" number="7.2.4">
+<h3><span class="header-section-number">7.2.4</span> Multistate Homicide Regression</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="difference-in-differences.html#cb26-1" aria-hidden="true" tabindex="-1"></a>reg_homic1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb26-2"><a href="difference-in-differences.html#cb26-2" aria-hidden="true" tabindex="-1"></a>reg_homic2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb26-3"><a href="difference-in-differences.html#cb26-3" aria-hidden="true" tabindex="-1"></a>reg_homic3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb26-4"><a href="difference-in-differences.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                     whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb26-5"><a href="difference-in-differences.html#cb26-5" aria-hidden="true" tabindex="-1"></a>                     unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb26-6"><a href="difference-in-differences.html#cb26-6" aria-hidden="true" tabindex="-1"></a>                     state<span class="sc">:</span>year</span>
+<span id="cb26-7"><a href="difference-in-differences.html#cb26-7" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year,<span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39;, &#39;stateWest Virginia:year&#39; and 2 others have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="difference-in-differences.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_homic1,reg_homic2,reg_homic3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),</span>
+<span id="cb28-2"><a href="difference-in-differences.html#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb28-3"><a href="difference-in-differences.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb28-4"><a href="difference-in-differences.html#cb28-4" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                       reg_homic1      reg_homic2          reg_homic3
+## Dependent Var.:       l_homicide      l_homicide          l_homicide
+##                                                                     
+## cdl              0.0877 (0.0638) 0.0811 (0.0779)     0.0672 (0.0457)
+## blackm_15_24                                         0.0984 (0.1269)
+## whitem_15_24                                        0.0676* (0.0401)
+## blackm_25_44                                         0.1195 (0.1358)
+## whitem_25_44                                     -0.0375*** (0.0133)
+## l_exp_subsidy                                       -0.0686 (0.0595)
+## l_exp_pubwelfare                                     0.0645 (0.1059)
+## l_police                                           0.1465** (0.0643)
+## unemployrt                                           0.0196 (0.0189)
+## poverty                                           -0.0488** (0.0222)
+## l_income                                          -0.5859** (0.2803)
+## l_prisoner                                          -0.1407 (0.3372)
+## l_lagprisoner                                       -0.2033 (0.3975)
+## Fixed-Effects:   --------------- --------------- -------------------
+## state                        Yes             Yes                 Yes
+## year                         Yes             Yes                 Yes
+## region^year                   No             Yes                 Yes
+## ________________ _______________ _______________ ___________________
+## S.E.: Clustered        by: state       by: state           by: state
+## Observations                 550             550                 550
+## R2                       0.91055         0.91527             0.95323
+## Within R2                0.01308         0.00869             0.45273</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="difference-in-differences.html#cb30-1" aria-hidden="true" tabindex="-1"></a>reg_homic1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state,<span class="at">weights=</span>castle<span class="sc">$</span>popwt, <span class="at">data=</span>castle)</span>
+<span id="cb30-2"><a href="difference-in-differences.html#cb30-2" aria-hidden="true" tabindex="-1"></a>reg_homic2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">weights=</span>castle<span class="sc">$</span>popwt, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb30-3"><a href="difference-in-differences.html#cb30-3" aria-hidden="true" tabindex="-1"></a>reg_homic3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb30-4"><a href="difference-in-differences.html#cb30-4" aria-hidden="true" tabindex="-1"></a>                     whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb30-5"><a href="difference-in-differences.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                     unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb30-6"><a href="difference-in-differences.html#cb30-6" aria-hidden="true" tabindex="-1"></a>                     state<span class="sc">:</span>year</span>
+<span id="cb30-7"><a href="difference-in-differences.html#cb30-7" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">weights=</span>castle<span class="sc">$</span>popwt, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span></code></pre></div>
+<pre><code>## Variables &#39;stateVermont:year&#39; and &#39;stateWyoming:year&#39; have been removed because of collinearity (see $collin.var).</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="difference-in-differences.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_homic1,reg_homic2,reg_homic3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),</span>
+<span id="cb32-2"><a href="difference-in-differences.html#cb32-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb32-3"><a href="difference-in-differences.html#cb32-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb32-4"><a href="difference-in-differences.html#cb32-4" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<pre><code>##                         reg_homic1         reg_homic2         reg_homic3
+## Dependent Var.:         l_homicide         l_homicide         l_homicide
+##                                                                         
+## cdl              0.0801** (0.0342) 0.0946*** (0.0282)  0.1004** (0.0395)
+## blackm_15_24                                             0.0613 (0.1089)
+## whitem_15_24                                             0.0375 (0.0274)
+## blackm_25_44                                            0.2302* (0.1263)
+## whitem_25_44                                          -0.0283** (0.0120)
+## l_exp_subsidy                                           -0.0429 (0.0395)
+## l_exp_pubwelfare                                         0.0494 (0.0644)
+## l_police                                               0.1291** (0.0500)
+## unemployrt                                               0.0142 (0.0121)
+## poverty                                                 -0.0180 (0.0128)
+## l_income                                               -0.3152* (0.1643)
+## l_prisoner                                              -0.1367 (0.1953)
+## l_lagprisoner                                           -0.4096 (0.2566)
+## Fixed-Effects:   ----------------- ------------------ ------------------
+## state                          Yes                Yes                Yes
+## year                           Yes                Yes                Yes
+## region^year                     No                Yes                Yes
+## ________________ _________________ __________________ __________________
+## S.E.: Clustered          by: state          by: state          by: state
+## Observations                   550                550                550
+## R2                         0.93417            0.94109            0.96239
+## Within R2                  0.03018            0.03020            0.38079</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fixed-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="synthetic-control.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-DinD.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

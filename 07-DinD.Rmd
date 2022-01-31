@@ -12,7 +12,7 @@ Let's replicate Figure 5.2 from Angrist and Pischke (2014) and see how trends in
 library(ggplot2)
 library(ggthemes)
 
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 banks<-readRDS("banks.RDS")
 
 plot1<-ggplot()+
@@ -92,7 +92,7 @@ kable_styling(latex_options = c("striped", "HOLD_position"))%>%
 ### Falsification tests
 
 ```{r, warning=F, message=F}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 castle<-readRDS("castle.RDS")
 library(fixest)
 library(tidyverse)

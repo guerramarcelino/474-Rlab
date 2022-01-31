@@ -18,7 +18,7 @@ In this lab, we will use data from the RAND Health Insurance Experiment (HIE), a
 
 
 ```{r, include=T}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 rand_sample<-readRDS("rand_sample.RDS")
 rand_spend<-readRDS("rand_spend.RDS")
 ```

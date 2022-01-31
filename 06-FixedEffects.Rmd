@@ -38,7 +38,7 @@ Reading the `CT1993.RDS` file and filtering by counties 1, 3, 23 and 91:
 
 ```{r}
 library(tidyverse)
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 ct93<-readRDS("CT1993.RDS")
 ct93_sub<-ct93%>%
   select(county, year, crmrte, prbarr, polpc, density, urban)%>%

@@ -44,7 +44,7 @@ For the exercise, we are going to use the [titanic.RDS](https://github.com/guerr
 
 ```{r, message=F, warning=F}
 library(tidyverse)
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 titanic<-readRDS("titanic.RDS")
 titanic$first_class<-ifelse(titanic$class==1,1,0)
 ```

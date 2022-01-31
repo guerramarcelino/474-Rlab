@@ -11,7 +11,7 @@ Download the dataset `germany.RDS` [here](https://github.com/guerramarcelino/Pol
 
 
 ```{r}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 data<-readRDS("germany.RDS")
 ```
 

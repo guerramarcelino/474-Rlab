@@ -33,7 +33,7 @@ The authors present an IV analysis of returns to schooling, instrumenting years 
 Reading the `ak91_census1980.RDS` file and running the regression of `lnw` on `s`:
 
 ```{r}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 ak91<-readRDS("ak91_census1980")
 
 library(fixest)

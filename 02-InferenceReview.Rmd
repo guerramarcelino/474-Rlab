@@ -192,7 +192,7 @@ This interval should contain $E(Y_{i})$ about 95% of the time. For instance, if 
 As you noted, we are usually concerned about two sample averages (e.g., [insured/uninsured individuals](https://guerramarcelino.github.io/Econ474/Lectures/Lec1/lec1?panelset1=lln2#2)). Let's go back to the RAND HIE example (download the data [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_spend.RDS)). There you have multiple health insurance types but can compare the Catastrophic with the others (any insurance). 
 
 ```{r}
-setwd("C:/Users/User/Desktop/474-Rlab/LectureNotes/datasets")
+setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 rand_spend<-readRDS("rand_spend.RDS")
 rand_spend$any_ins<-ifelse(rand_spend$plantype!="Catastrophic", "Any Insurance", "Catastrophic")
 ```
