@@ -79,7 +79,7 @@ kbl(balance, digits=2, caption = "Balance Table 1960-2003", booktabs = T) %>%
 ```
 
 
-```{r}
+```{r plotsc1}
 path.plot(synth.res = synth.out, dataprep.res = dataprep.out,
           Ylab = "Per capita GDP (PPP, 2002 USD)", Xlab = "Year",
           Ylim = c(0, 35000), Legend = c("West Germany","Synthetic West Germany"), Legend.position = "bottomright",
@@ -87,7 +87,7 @@ path.plot(synth.res = synth.out, dataprep.res = dataprep.out,
 ```
 
 
-```{r}
+```{r plotsc2}
 gaps.plot(synth.res = synth.out, dataprep.res = dataprep.out,
            Ylab = "Per capita GDP (PPP, 2002 USD)", Xlab = "Year",
           tr.intake = 1990)
@@ -98,7 +98,7 @@ gaps.plot(synth.res = synth.out, dataprep.res = dataprep.out,
 ## Placebo Studies
 
 
-```{r, warning=F, message=F, results=F}
+```{r plotsc3, warning=F, message=F, results=F}
 dataprep.out2 <-
   dataprep(foo = data,
            predictors    = c("gdp","trade","infrate"),
@@ -131,7 +131,7 @@ placebo <- generate.placebos(dataprep.out = dataprep.out,
                              synth.out = synth.out, strategy = "multiprocess")
 ```
 
-```{r}
+```{r placebos}
 plot_placebos(placebo)
 ```
 
@@ -140,6 +140,6 @@ test_out <- mspe.test(placebo)
 test_out$p.val
 ```
 
-```{r}
+```{r mspe}
 mspe.plot(tdf = placebo)
 ```

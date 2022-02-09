@@ -17,7 +17,7 @@ The main identification assumption in the DinD framework is *common trends*. One
 
 Let's replicate Figure 5.2 from Angrist and Pischke (2014) and see how trends in bank failures in Mississippi evolved before, during, and after the Caldwell crisis. Download the data [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/banks.RDS). In this exercise, we use the packages `ggplot2` and `ggthemes`.
 
-```{r, warning=F, message=F}
+```{r plot1, warning=F, message=F}
 # If you don't have the packages, start with install.packages("ggplot2") and
 # install.packages("ggthemes")
 library(ggplot2)
@@ -48,7 +48,7 @@ head(panel_banks,5)
 
 Then, you apply almost the same code and get the plot with legends:
 
-```{r}
+```{r plot2}
 plot2<-ggplot()+
   geom_line(data=panel_banks, aes(x=year, y=value, col=variable),size=1.4)+
   scale_color_manual("", values=c("#8abbd0", "#336666"))+
@@ -61,7 +61,7 @@ plot2
 
 `ggplot2` allows you to customize your graphs in many ways. For example, if you want different line types:
 
-```{r}
+```{r plot3}
 plot3<-ggplot()+
   geom_line(data=panel_banks, aes(x=year, y=value, col=variable, linetype = variable),size=1.4)+
   scale_color_manual("", values=c("#8abbd0", "#336666"))+
@@ -171,7 +171,7 @@ etable(reg_aslt1,reg_aslt2,reg_aslt3,signifCode = c("***"=0.01, "**"=0.05, "*"=0
 
 ### Homicide in Florida
 
-```{r, message=F, warning=F}
+```{r plot4, message=F, warning=F}
 florida<-castle%>%filter(state=="Florida"|treated==0)
 florida<-florida%>%mutate(treat=ifelse(state=="Florida","Florida","Control Group"))
 plot<-florida%>%group_by(treat, year)%>%summarize(Homicide=mean(l_homicide))
@@ -205,7 +205,7 @@ etable(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,signifCode = c("***"=0.01, "**"
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
 
-```{r}
+```{r plot5}
 florida_plot = feols(l_homicide~i(treated, year, 2004)|state+year, cluster=~state, data=florida)
 coefplot(florida_plot)
 ```

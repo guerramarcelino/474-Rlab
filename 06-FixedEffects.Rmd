@@ -14,7 +14,7 @@ library(fontawesome)
 
 ## Preliminaries
 
-These notes are based on [Nick Huntington-Klein's lecture on Within Variation and Fixed Effects](https://nickch-k.github.io/EconometricsSlides/Week_06/Week_06_1_Within_Variation_and_Fixed_Effects.html#1). Check his video lecture [here](https://www.youtube.com/watch?v=Af0eSTbjj_I&t=889s). In this exercise, we use data from [Cornwell and Trumbuil (1993)](https://www.ssc.wisc.edu/~munia/590/trunbull.pdf). This dataset [download here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/CT1993.RDS) comprehends 90 North Carolina counties during the period from 1981 to 1987. The table below describes the variables:
+These notes are based on [Nick Huntington-Klein's lecture on Within Variation and Fixed Effects](https://nickch-k.github.io/EconometricsSlides/Week_06/Week_06_1_Within_Variation_and_Fixed_Effects.html#1). Check his video lecture [here](https://www.youtube.com/watch?v=Af0eSTbjj_I&t=889s). In this exercise, we use data from @cornwell1994estimating. This dataset [download here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/CT1993.RDS) comprehends 90 North Carolina counties during the period from 1981 to 1987. The table below describes the variables:
 
 
 

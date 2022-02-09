@@ -9,13 +9,16 @@
 library(fontawesome)
 ```
 
-# RAND Health Insurance Experiment 
 
-## Working with .RDS files 
+# Randomized Experiments
 
-The first step is to set up your working directory. To better organize things, I have a folder named `Rlabs` on my desktop. Inside of it, I also have different folders for each `r fa("r-project", fill = "steelblue")` lab - in this case, `lab1`. To change the working directory, use  `setwd()` with the path that leads to the folder you want. 
+## RAND Health Insurance Experiment 
 
-In this lab, we will use data from the RAND Health Insurance Experiment (HIE), and there are two datasets. [Here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_sample.RDS) you have demographic information about the subjects in the study and also health variables (outcomes) both before and after the experiment. The other file ([here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_spend.RDS)) has information about health care spending. 
+### Working with .RDS files 
+
+The first step is to set up your working directory. To better organize things, you can create a folder named `Rlabs` on your desktop. Inside of it, you might want to have different folders for each `r fa("r-project", fill = "steelblue")` lab - in this case, `lab1`. To change the working directory, use  `setwd()` with the path that leads to the folder you want, or press `ctrl+shift+h` and find the preferred folder. 
+
+In this lab, we will use data from the RAND Health Insurance Experiment (HIE), and there are two datasets. [Here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_sample.RDS) you have demographic information about the subjects in the study and also health variables (outcomes) both before and after the experiment. The other file ([here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/rand_spend.RDS)) has information about health care spending. These notes are heavily based on @angrist2014mastering chapter 1, and [here](https://guerramarcelino.github.io/Econ474/Lectures/Lec1/lec1?panelset1=lln2#11) you have a summary of the RAND HIE.
 
 
 ```{r, include=T}
@@ -23,6 +26,7 @@ setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 rand_sample<-readRDS("rand_sample.RDS")
 rand_spend<-readRDS("rand_spend.RDS")
 ```
+
 If you want to see the first values on that dataset, you can use the function head() or use `View(rand_sample)` to open the dataframe in a new tab.
 
 ```{r, include=T, eval=F}
@@ -34,6 +38,23 @@ head(rand_sample,5)
 View(rand_spend)
 #head(rand_spend,5)
 ```
+
+<style>
+div.blue { background-color:#AAB7B8; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+Another way to check the dataset is using the function `glimpse()`, using tidyverse. Then you have a good look at all the 319 columns in this dataset. 
+
+```{r, results=F}
+library(tidyverse)
+rand_spend%>%glimpse()
+```
+
+</div>
+
+<br>
+
 
 Besides the column `plantype`, which identifies the assigned insurance group of each individual, the variables that we are looking for are displayed in  \@ref(tab:tab1):
 
@@ -52,12 +73,26 @@ kable_styling(latex_options = c("striped", "HOLD_position"))%>%
   pack_rows("rand_spend file", 15, 19) 
 ```
 
-## Summarizing data
+Using the function `select()`, you can focus only on the columns you will be using in this exercise:
+
+```{r}
+
+rand_sample<-rand_sample%>%select(person, plantype, female, blackhisp,age,educper,
+                                  income1cpi,hosp,ghindx,cholest,systol,
+                                  mhi,ghindxx,cholestx,systolx,mhix)
+
+rand_spend<-rand_spend%>%select(person,plantype ,ftf,out_inf,totadm,inpdol_inf,tot_inf)
+
+```
+
+
+### Summarizing data
 
 Let's say you want to compare demographic characteristics of the individuals in the RAND HIE across health insurance groups. To do that, you just need the functions `group_by()` and `summarize()` from the `tidyverse` package. Since there are some missing observations (NA), allow the function mean() to ignore those NAs. 
 
 ```{r}
 library(tidyverse)
+
 rand_sample%>%group_by(plantype)%>%
 summarize(Female=mean(female, na.rm=T), 
 Nonwhite=mean(blackhisp, na.rm=T),                    
@@ -75,7 +110,7 @@ Education=mean(educper, na.rm=T),
 
 You can see that those values are the same as the ones in the lecture notes. 
 
-## Checking for Balance
+### Checking for Balance
 
 Although you can see the average values of demographic characteristics, we are unsure whether the difference in means across groups is statistically different from zero. We can perform a standard t-test comparing two groups. In this example, we compare the Catastrophic with the free plan. Let's try education first:
 
@@ -97,13 +132,32 @@ Again, the p-value is higher than 0.05, and we cannot reject the null: there is 
 **As an exercise, try to compare all the demographic characteristics between insurance levels. Use Catastrophic as "control" and Deductible, Coinsurance and Free as "treatment" - do it using pairwise comparisons, e.g., Catastrophic x Deductible, Catastrophic x Coinsurance, and so on.**   
 
 
-## Results of the Experiment
+### Results of the Experiment
 
 As we saw in class, subjects assigned to more generous insurance plans used substantially more health care. Let's compare outpatient expenses and face-to-face visits between the Catastrophic group and **the other groups together (we call it `any_ins`)**.
 
-```{r}
+The `ifelse()` function helps you to assemble all groups that are different from Catastrophic in only group - `Any Insurance`. 
 
+```{r}
 rand_spend$any_ins<-ifelse(rand_spend$plantype=="Catastrophic", "Catastrophic","Any Insurance")
+```
+
+In this case, you are creating a new column in the dataset called `any_ins`. The first input is `rand_spend$plantype=="Catastrophic"`. That means for all individuals with Catastrophic plan, write `Catastrophic`. Otherwise, write `Any Insurance`. The same can be done with the `mutate()` function:
+
+```{r}
+rand_spend<-rand_spend%>%
+  mutate(any_ins2=ifelse(rand_spend$plantype=="Catastrophic", "Catastrophic","Any Insurance"))
+```
+
+You can check whether `any_ins` and `any_ins2` gives you the same result:
+
+```{r}
+all(rand_spend$any_ins==rand_spend$any_ins2)
+```
+
+Running the `t.test()` to check if there are differences in face-to-face visits between groups:
+
+```{r}
 t.test(ftf~any_ins, data=rand_spend,alternative="two.sided")
 ```
 The almost zero p-value gives us confidence that the difference in face-to-face visits between those with some insurance and the Catastrophic group is statistically significant. One can see the same for outpatient expenses below:
@@ -113,7 +167,7 @@ t.test(out_inf~any_ins, data=rand_spend, alternative="two.sided")
 ```
 
 
-## Equivalence of Differences in Means and Regression
+### Equivalence of Differences in Means and Regression
 
 Instead of performing a t-test for differences in means, one can run regressions and get the same results. Regression plays an important role in empirical economic research and can be easily applied to experimental data. The advantage is that you can add controls and fix standard errors (we will talk about that later).  
 
@@ -150,4 +204,59 @@ t.test(out_inf~any_ins, data=rand_spend, alternative="two.sided", var.equal = TR
 ```
 
 **What about the health outcomes?** Compare the average health outcomes after the experiment - `ghindxx`, `cholestx`, `systolx`, `mhix` - between the Catastrophic and any insurance groups using regression. Do you see any statistically significant coefficient?  
+
+
+## A/B Testing
+
+A/B tests are heavily used in industry. Companies run thousands of experiments every year, sometimes involving millions of customers to test changes in user experience, the relevance of algorithms, etc. (see some examples [here](https://guerramarcelino.github.io/Econ474/Lectures/Lec1/lec1#19)). Before you start designing those experiments, you need to understand some basic concepts related to hypothesis testing^[In chapter 2, we provide an extensive review of inference.]. 
+
+For now, let's talk about possible results when conducting a test. Say you want to check customer engagement in the [Active Illini](https://active.illinois.edu/) website. To participate in Intramural Activities, students must pay a $50 fee. The user needs to click on the "Memberships" box in the middle of the homepage at the bottom left and follow some instructions. Working as a data scientist at Campus Recreation, you suggest placing the "Memberships" at the top left instead to see whether this causes an increase in intramural memberships. **The experimental unit is user**: some will be randomly selected to see the "Memberships" box at the top left, others will see the current version (at the bottom left). You get the mean of intramural memberships in each group and then compare those values, testing the following:
+
+\begin{array}{rcl}
+	H_{o} & \mu_{1}=\mu_{0}   \\
+	H_{a} & \mu_{1}\neq \mu_{0}      
+\end{array}
+
+where $\mu_{1}$ is the average number of intramural memberships in the treated group, and $\mu_{0}$ is the average number of intramural memberships in the control group. Conducting this kind of test, you have four possible outcomes:
+
+1. If the null hypothesis is false and the statistical test leads us to reject it, you’ve made a correct decision. You’ve correctly determined that intramural memberships are affected by the box position.
+
+2. If the null hypothesis is true and you don’t reject it, you’ve made a correct decision. There is no difference between having the box at the top left or at the bottom left.
+
+3. If the null hypothesis is true, but you reject it, you’ve committed a Type I error. You’ve concluded that the box position affects intramural memberships when it doesn’t.
+
+4. If the null hypothesis is false and you fail to reject it, you’ve committed a Type II error. Box position affects intramural memberships, but you’ve been unable to discern this.
+
+These outcomes are illustrated below:
+
+
+|             | **Fail to Reject $H_{0}$**|  **Reject $H_{0}$** | 
+|:-------------:|:-------------:|:------------------:|
+$H_{0}$ is true | Good decision $(Prob=1-\alpha)$ | Type I error $(Prob=\alpha)$  | 
+$H_{a}$ is true | Type II error $(Prob=\beta)$ |Good decision $(Prob=1-\beta)$  |
+
+We would like to have a good power $(1-\beta\text{, usually 80%})$ - i.e., to be able to detect an effect if there is a true effect to be detected. In that sense, power analysis is an important aspect of experimental design - it allows us to determine the minimum sample size to detect an effect of a given size with a certain degree of confidence. For simple experiments, the `r fa("r-project", fill = "steelblue")` package `pwr` can be used to perform power analysis.
+
+For example, to compute the sample size required to reach a good power in the intramural memberships experiment, we can use the following:
+
+```{r}
+## install it first using install.packages("pwr") 
+library(pwr)
+pwr.t.test(d=0.2, sig.level=0.05, power=0.8)
+```
+
+For each group, we would need 394 users. In total, the sample size would be 788 users. The necessary ingredients to cook the required sample size are *i)* d  *ii)* $\alpha=0.05$, and *iii)* $power=0.8$. The first input $d$ is the effect size - a standardized measure of the difference you are trying to detect. In other words, you want to be able to detect a difference of 0.2 (a change that would be considered important for Campus Recreation) with a probability of 0.8. 
+
+Now, let's say you only had 92 users in each group accessing the Active Illini website during the last two weeks. Is 92 x 2 a large enough sample for your experiment?
+
+```{r}
+## install it first using 
+# install.packages("pwr") 
+library(pwr)
+pwr.t.test(d=0.2, sig.level=0.05, n=92)
+```
+
+The power of this test is only 27.11%. You probably won't detect that small effect $(d=0.2)$ with so few people in each group. One alternative is to keep running the experiment until you reach 394 users per group.  
+
+
 

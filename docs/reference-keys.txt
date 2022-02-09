@@ -52,3 +52,6 @@ tab:tab1
 tab:unnamed-chunk-1
 tab:unnamed-chunk-6
 tab:unnamed-chunk-5
+randomized-experiments
+ab-testing
+tab:unnamed-chunk-2

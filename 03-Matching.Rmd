@@ -171,7 +171,7 @@ One of the assumptions for matching is the existence of **common support**: ther
 
 You can look at the distributions of the propensity score in the treated and control groups:
 
-```{r}
+```{r hist-psm}
 library(patchwork)
 hist1<-probs  %>%
   filter(job_training == 0) %>%
