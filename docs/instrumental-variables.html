@@ -337,7 +337,7 @@ Age
 <h2><span class="header-section-number">5.2</span> OLS results</h2>
 <p>Reading the <code>ak91_census1980.RDS</code> file and running the regression of <code>lnw</code> on <code>s</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="instrumental-variables.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/datasets&quot;</span>)</span>
-<span id="cb1-2"><a href="instrumental-variables.html#cb1-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;ak91_census1980&quot;</span>)</span>
+<span id="cb1-2"><a href="instrumental-variables.html#cb1-2" aria-hidden="true" tabindex="-1"></a>ak91<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;ak91_census1980.RDS&quot;</span>)</span>
 <span id="cb1-3"><a href="instrumental-variables.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="instrumental-variables.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
 <span id="cb1-5"><a href="instrumental-variables.html#cb1-5" aria-hidden="true" tabindex="-1"></a>reg_ols1<span class="ot">&lt;-</span><span class="fu">feols</span>(lnw<span class="sc">~</span>s, <span class="at">data=</span>ak91, <span class="at">se=</span><span class="st">&quot;hetero&quot;</span>)</span>
