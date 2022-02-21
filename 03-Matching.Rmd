@@ -260,7 +260,9 @@ $$\frac{Treatment}{Propensity}-\frac{1-Treatment}{1-Propensity}$$
 nonexper_data<-nonexper_data%>%filter(prop_scores>=.1 &prop_scores<=.9 )
 ## Generating the IPW
 nonexper_data<-nonexper_data %>%
-  mutate(ipw = (treat / prop_scores) + ((1 - treat) / (1 - prop_scores)))
+  mutate(ipw = (treat-prop_scores)/(prop_scores*(1-prop_scores)))
+ # mutate(ipw = (treat / prop_scores) + ((1 - treat) / (1 - prop_scores)))
+nonexper_data$ipw
 ```
 
 Finally, run a weighted regression using `ipw` as weights:

@@ -13,7 +13,7 @@ library(fontawesome)
 
 ## Preliminaries
 
-Here we replicate some tables from [Angrist and Krueger (1991)](https://www.nber.org/papers/w3572). The dataset `ak91_census1980` [download here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/ak91_census1980) comprehends men born in 1930-1939 in the U.S. Census. The table below describes the variables:
+Here we replicate some tables from [Angrist and Krueger (1991)](https://www.nber.org/papers/w3572). The dataset `ak91_census1980` [download here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/ak91_census1980.RDS) comprehends men born in 1930-1939 in the U.S. Census. The table below describes the variables:
 
 ```{r, echo=F}
 library(kableExtra)
