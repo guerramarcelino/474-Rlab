@@ -18,12 +18,10 @@ The main identification assumption in the DinD framework is *common trends*. One
 Let's replicate Figure 5.2 from Angrist and Pischke (2014) and see how trends in bank failures in Mississippi evolved before, during, and after the Caldwell crisis. Download the data [here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/banks.RDS). In this exercise, we use the packages `ggplot2` and `ggthemes`.
 
 ```{r plot1, warning=F, message=F}
-# If you don't have the packages, start with install.packages("ggplot2") and
-# install.packages("ggthemes")
+# If you don't have the packages, start with install.packages("ggplot2") and install.packages("ggthemes")
 library(ggplot2)
 library(ggthemes)
 
-setwd("C:/Users/User/Desktop/474-Rlab/datasets")
 banks<-readRDS("banks.RDS")
 
 plot1<-ggplot()+
@@ -75,7 +73,11 @@ plot3
 
 Check also `ggthemes` [here](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). There you have plenty of options for the plot background.
 
-## Difference-in-Differences Example: Cheng and Hoekstra (2013)
+## 2x2 Difference-in-Differences
+
+TBD
+
+## Cheng and Hoekstra (2013)
 
 These notes are mostly based on [Cunningham (2021)](https://mixtape.scunning.com/difference-in-differences.html?panelset6=r-code7&panelset4=r-code5&panelset7=r-code8&panelset5=r-code6#replicating-cheng2013-sort-of). This exercise replicates some of the results of [Cheng and Hoekstra (2013)](http://jhr.uwpress.org/content/48/3/821.short). The dataset ([download here](https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/castle.RDS)) comprehends 50 U.S states during the period 2000-2010. The authors aimed to evaluate the effect of the staggered adoption of "stand your ground" laws on crime. Check lecture notes for discussion [here](https://guerramarcelino.github.io/Econ474/Lectures/Lec6/lec6?panelset6=did-regression3&panelset7=2x2-difference-in-differences2&panelset8=regression-results4&panelset9=did-assumptions2&panelset10=threats-to-validity2&panelset11=deterrence2#31).
 
@@ -102,8 +104,10 @@ kable_styling(latex_options = c("striped", "HOLD_position"))%>%
 
 ### Falsification tests
 
+Intuitively, we would think think that the passing of the Castle-doctrine law would mainly affect a state's homicide rate or level of crimes related to physically harming others. Whereas we would expect crimes like motor vehicle left and larceny to remain constant through the passing and implementation of the law. To test this assumption do the following regression analyses: 
+
 ```{r, warning=F, message=F}
-setwd("C:/Users/User/Desktop/474-Rlab/datasets")
+
 castle<-readRDS("castle.RDS")
 library(fixest)
 library(tidyverse)
@@ -120,10 +124,12 @@ reg_motor3<-feols(l_motor~cdl+blackm_15_24+whitem_15_24+blackm_25_44+
               state:year
               |state+year+region^year, cluster=~state, data=castle)
 
-etable(reg_motor1,reg_motor2,reg_motor3,signifCode = c("***"=0.01, "**"=0.05, "*"=0.10),   keep=c("cdl","blackm_15_24","whitem_15_24","blackm_25_44",
+etable(reg_motor1,reg_motor2,reg_motor3,signif.code = c("***"=0.01, "**"=0.05, "*"=0.10),   keep=c("cdl","blackm_15_24","whitem_15_24","blackm_25_44",
                      "whitem_25_44","l_exp_subsidy","l_exp_pubwelfare","l_police",
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
+Note: The first column only considers state and year FEs. The second column adds region-by-year fixed effects, and the third column adds time-varying covariates and state-specific trends. All regressions are weighted by state population.
+
 
 ```{r}
 reg_lar1<-feols(l_larceny~cdl|state+year, cluster=~state, data=castle)
@@ -138,8 +144,12 @@ etable(reg_lar1,reg_lar2,reg_lar3,signifCode = c("***"=0.01, "**"=0.05, "*"=0.10
                      "whitem_25_44","l_exp_subsidy","l_exp_pubwelfare","l_police",
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
+From the above regression results we can see that regardless of the covariates we add, the affect the new law has on larceny and motor vehicle left is not statistically significant. This provides a well established baseline for our falsification tests. 
+
 
 ### Deterrence
+
+Besides just testing if homicide rates change, we would also like to investigate if the Castle doctrine laws have a significant deterrent effect. In other words, if potential criminals know that their victims can legally shoot them in self-defense, does this knowledge decrease certain types of crime?
 
 ```{r}
 reg_rob1<-feols(l_robbery~cdl|state+year, cluster=~state, data=castle)
@@ -168,8 +178,15 @@ etable(reg_aslt1,reg_aslt2,reg_aslt3,signifCode = c("***"=0.01, "**"=0.05, "*"=0
                      "whitem_25_44","l_exp_subsidy","l_exp_pubwelfare","l_police",
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
+From these regression results we can conclude there is no effect on robbery or aggravated assault and burglary. As the results are statistically insignificant, we do not find a deterrent effect from the passing and implementation of Castle-doctrine laws.
+
 
 ### Homicide in Florida
+
+Before doing multistate homicide regression analysis, we can specifically look at the state of Florida to get an idea of the affect the Castle-Doctrine laws had on homicide rates.
+
+To best do this, lets visualization homicide rates in Florida compared to a control group containing all states who did not pass a similar Castle-doctrine law between 2000 to 2010.
+
 
 ```{r plot4, message=F, warning=F}
 florida<-castle%>%filter(state=="Florida"|treated==0)
@@ -189,7 +206,7 @@ library(ggthemes)
   theme(axis.text=element_text(size=12),
         axis.title=element_text(size=12,face="bold"))
 ```
-
+As shown in the graph, Florida starts with a higher average homicide rate than the control group, which decreases slightly (could be an issue with common trends). The homicide rate than increases substantially the years following 2005, then begins to return to its previous level around 2009. Whereas the control group's homicide rate only decreases post 2005.
 
 ```{r}
 reg_homic1_fl<-feols(l_homicide~cdl|state+year, cluster=~state, data=florida)
@@ -200,15 +217,19 @@ reg_homic3_fl<-feols(l_homicide~cdl+blackm_15_24+whitem_15_24+blackm_25_44+
                   state:year
                 |state+year+region^year, cluster=~state, data=florida)
 
-etable(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,signifCode = c("***"=0.01, "**"=0.05, "*"=0.10),   keep=c("cdl","blackm_15_24","whitem_15_24","blackm_25_44",
+etable(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,signif.code = c("***"=0.01, "**"=0.05, "*"=0.10),   keep=c("cdl","blackm_15_24","whitem_15_24","blackm_25_44",
                      "whitem_25_44","l_exp_subsidy","l_exp_pubwelfare","l_police",
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
+To put numbers to our visualization we run a regression like we have before. A large but only slightly significant affect on homicide rate can be found after adding all our covariates.
+
 
 ```{r plot5}
-florida_plot = feols(l_homicide~i(treated, year, 2004)|state+year, cluster=~state, data=florida)
-coefplot(florida_plot)
+florida_plot = feols(l_homicide~i(year, treated, ref=2004)|state+year, cluster=~state, data=florida)
+#coefplot(florida_plot)
+iplot(florida_plot, main="Effect of Castle Doctrine on Homicide rates in Florida")
 ```
+The above graph plots confidence intervals alongside the point estimates that we had found for each year. By doing this, we get a better understanding of how confident we in the affect Castle-doctrine laws have on each years homicide rates. In this case, all years post 2005 have a statistically significant increase as all of the confidence intervals do not include zero. 
 
 ### Multistate Homicide Regression
 
@@ -227,6 +248,7 @@ etable(reg_homic1,reg_homic2,reg_homic3,signifCode = c("***"=0.01, "**"=0.05, "*
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
 
+Finally, we can run a multistate homicide regression. Looking at the results of this regression we see the coefficient on *cdl* is not statistically significant. Therefore, we would think the Castle-doctrine would have no affect on homicide rates... However, we can add further complexity to the model to ensure are results are more accurate.
 
 ```{r}
 reg_homic1<-feols(l_homicide~cdl|state+year, cluster=~state,weights=castle$popwt, data=castle)
@@ -242,3 +264,10 @@ etable(reg_homic1,reg_homic2,reg_homic3,signifCode = c("***"=0.01, "**"=0.05, "*
                      "whitem_25_44","l_exp_subsidy","l_exp_pubwelfare","l_police",
                      "unemployrt","poverty","l_income","l_prisoner","l_lagprisoner"))
 ```
+
+The above regression adds weights to the regression to account for state population differences. After adding this aspect, we find a statistically significant impact on the increase in homicide rates coming from self defense laws. These results are significant regardless of the covariates that get added, but as the covariate count increases we see a larger impact on our outcome variable *cdl*.  
+
+### Multistate Event-Study
+
+TBD
+

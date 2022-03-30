@@ -55,3 +55,6 @@ tab:unnamed-chunk-5
 randomized-experiments
 ab-testing
 tab:unnamed-chunk-2
+x2-difference-in-differences
+cheng-and-hoekstra-2013
+multistate-event-study

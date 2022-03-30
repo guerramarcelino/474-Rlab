@@ -24,7 +24,7 @@
 <meta name="author" content="Ben Cizek, Alex Costa, Marcelino Guerra, Mingqian Liu" />
 
 
-<meta name="date" content="2022-02-04" />
+<meta name="date" content="2022-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -226,12 +226,14 @@ div.csl-indent {
 <li class="chapter" data-level="7" data-path="difference-in-differences.html"><a href="difference-in-differences.html"><i class="fa fa-check"></i><b>7</b> Difference-in-Differences</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#line-plots"><i class="fa fa-check"></i><b>7.1</b> Line plots</a></li>
-<li class="chapter" data-level="7.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#difference-in-differences-example-cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>7.2</b> Difference-in-Differences Example: Cheng and Hoekstra (2013)</a>
+<li class="chapter" data-level="7.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#x2-difference-in-differences"><i class="fa fa-check"></i><b>7.2</b> 2x2 Difference-in-Differences</a></li>
+<li class="chapter" data-level="7.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#cheng-and-hoekstra-2013"><i class="fa fa-check"></i><b>7.3</b> Cheng and Hoekstra (2013)</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>7.2.1</b> Falsification tests</a></li>
-<li class="chapter" data-level="7.2.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>7.2.2</b> Deterrence</a></li>
-<li class="chapter" data-level="7.2.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>7.2.3</b> Homicide in Florida</a></li>
-<li class="chapter" data-level="7.2.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>7.2.4</b> Multistate Homicide Regression</a></li>
+<li class="chapter" data-level="7.3.1" data-path="difference-in-differences.html"><a href="difference-in-differences.html#falsification-tests"><i class="fa fa-check"></i><b>7.3.1</b> Falsification tests</a></li>
+<li class="chapter" data-level="7.3.2" data-path="difference-in-differences.html"><a href="difference-in-differences.html#deterrence"><i class="fa fa-check"></i><b>7.3.2</b> Deterrence</a></li>
+<li class="chapter" data-level="7.3.3" data-path="difference-in-differences.html"><a href="difference-in-differences.html#homicide-in-florida"><i class="fa fa-check"></i><b>7.3.3</b> Homicide in Florida</a></li>
+<li class="chapter" data-level="7.3.4" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-homicide-regression"><i class="fa fa-check"></i><b>7.3.4</b> Multistate Homicide Regression</a></li>
+<li class="chapter" data-level="7.3.5" data-path="difference-in-differences.html"><a href="difference-in-differences.html#multistate-event-study"><i class="fa fa-check"></i><b>7.3.5</b> Multistate Event-Study</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="synthetic-control.html"><a href="synthetic-control.html"><i class="fa fa-check"></i><b>8</b> Synthetic Control</a>
@@ -267,24 +269,22 @@ div.csl-indent {
 <h2><span class="header-section-number">7.1</span> Line plots</h2>
 <p>The main identification assumption in the DinD framework is <em>common trends</em>. One way to see whether the assumption is reasonable in your setting is through line plots. The first step is to show how the outcomes in both treatment and control groups evolve - preferable with multiple pre-intervention periods.</p>
 <p>Let’s replicate Figure 5.2 from Angrist and Pischke (2014) and see how trends in bank failures in Mississippi evolved before, during, and after the Caldwell crisis. Download the data <a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/banks.RDS">here</a>. In this exercise, we use the packages <code>ggplot2</code> and <code>ggthemes</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="difference-in-differences.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you don&#39;t have the packages, start with install.packages(&quot;ggplot2&quot;) and</span></span>
-<span id="cb1-2"><a href="difference-in-differences.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;ggthemes&quot;)</span></span>
-<span id="cb1-3"><a href="difference-in-differences.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="difference-in-differences.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-5"><a href="difference-in-differences.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="difference-in-differences.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/datasets&quot;</span>)</span>
-<span id="cb1-7"><a href="difference-in-differences.html#cb1-7" aria-hidden="true" tabindex="-1"></a>banks<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;banks.RDS&quot;</span>)</span>
-<span id="cb1-8"><a href="difference-in-differences.html#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="difference-in-differences.html#cb1-9" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb1-10"><a href="difference-in-differences.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">6th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#336666&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-11"><a href="difference-in-differences.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">8th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#8abbd0&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-12"><a href="difference-in-differences.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of banks in business&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-13"><a href="difference-in-differences.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb1-14"><a href="difference-in-differences.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_economist</span>()<span class="sc">+</span></span>
-<span id="cb1-15"><a href="difference-in-differences.html#cb1-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
-<span id="cb1-16"><a href="difference-in-differences.html#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span>
-<span id="cb1-17"><a href="difference-in-differences.html#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="difference-in-differences.html#cb1-18" aria-hidden="true" tabindex="-1"></a>plot1</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="difference-in-differences.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you don&#39;t have the packages, start with install.packages(&quot;ggplot2&quot;) and install.packages(&quot;ggthemes&quot;)</span></span>
+<span id="cb1-2"><a href="difference-in-differences.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="difference-in-differences.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-4"><a href="difference-in-differences.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="difference-in-differences.html#cb1-5" aria-hidden="true" tabindex="-1"></a>banks<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;banks.RDS&quot;</span>)</span>
+<span id="cb1-6"><a href="difference-in-differences.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="difference-in-differences.html#cb1-7" aria-hidden="true" tabindex="-1"></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb1-8"><a href="difference-in-differences.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">6th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#336666&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-9"><a href="difference-in-differences.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>banks, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span><span class="st">`</span><span class="at">8th district</span><span class="st">`</span>),<span class="at">size=</span><span class="fl">1.4</span>, <span class="at">color=</span><span class="st">&quot;#8abbd0&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-10"><a href="difference-in-differences.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of banks in business&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-11"><a href="difference-in-differences.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="difference-in-differences.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_economist</span>()<span class="sc">+</span></span>
+<span id="cb1-13"><a href="difference-in-differences.html#cb1-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb1-14"><a href="difference-in-differences.html#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb1-15"><a href="difference-in-differences.html#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="difference-in-differences.html#cb1-16" aria-hidden="true" tabindex="-1"></a>plot1</span></code></pre></div>
 <p><img src="images/plot1-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Instead of using <code>geom_line()</code> for each district, you can reshape the dataset. That will easily allow you to have legends for each line:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="difference-in-differences.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
@@ -319,8 +319,12 @@ div.csl-indent {
 <p><img src="images/plot3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Check also <code>ggthemes</code> <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a>. There you have plenty of options for the plot background.</p>
 </div>
-<div id="difference-in-differences-example-cheng-and-hoekstra-2013" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Difference-in-Differences Example: Cheng and Hoekstra (2013)</h2>
+<div id="x2-difference-in-differences" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> 2x2 Difference-in-Differences</h2>
+<p>TBD</p>
+</div>
+<div id="cheng-and-hoekstra-2013" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Cheng and Hoekstra (2013)</h2>
 <p>These notes are mostly based on <a href="https://mixtape.scunning.com/difference-in-differences.html?panelset6=r-code7&amp;panelset4=r-code5&amp;panelset7=r-code8&amp;panelset5=r-code6#replicating-cheng2013-sort-of">Cunningham (2021)</a>. This exercise replicates some of the results of <a href="http://jhr.uwpress.org/content/48/3/821.short">Cheng and Hoekstra (2013)</a>. The dataset (<a href="https://github.com/guerramarcelino/PolicyEval/raw/main/Datasets/castle.RDS">download here</a>) comprehends 50 U.S states during the period 2000-2010. The authors aimed to evaluate the effect of the staggered adoption of “stand your ground” laws on crime. Check lecture notes for discussion <a href="https://guerramarcelino.github.io/Econ474/Lectures/Lec6/lec6?panelset6=did-regression3&amp;panelset7=2x2-difference-in-differences2&amp;panelset8=regression-results4&amp;panelset9=did-assumptions2&amp;panelset10=threats-to-validity2&amp;panelset11=deterrence2#31">here</a>.</p>
 <p>The variables are described below:</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -526,28 +530,28 @@ State Population (used in the weighted regression)
 </tr>
 </tbody>
 </table>
-<div id="falsification-tests" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Falsification tests</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="difference-in-differences.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/User/Desktop/474-Rlab/datasets&quot;</span>)</span>
-<span id="cb6-2"><a href="difference-in-differences.html#cb6-2" aria-hidden="true" tabindex="-1"></a>castle<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;castle.RDS&quot;</span>)</span>
-<span id="cb6-3"><a href="difference-in-differences.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
-<span id="cb6-4"><a href="difference-in-differences.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb6-5"><a href="difference-in-differences.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE</span></span>
-<span id="cb6-6"><a href="difference-in-differences.html#cb6-6" aria-hidden="true" tabindex="-1"></a>reg_motor1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
-<span id="cb6-7"><a href="difference-in-differences.html#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="difference-in-differences.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects</span></span>
-<span id="cb6-9"><a href="difference-in-differences.html#cb6-9" aria-hidden="true" tabindex="-1"></a>reg_motor2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
-<span id="cb6-10"><a href="difference-in-differences.html#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="difference-in-differences.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects, additional controls and State-Specific Linear Time trends</span></span>
-<span id="cb6-12"><a href="difference-in-differences.html#cb6-12" aria-hidden="true" tabindex="-1"></a>reg_motor3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
-<span id="cb6-13"><a href="difference-in-differences.html#cb6-13" aria-hidden="true" tabindex="-1"></a>              whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
-<span id="cb6-14"><a href="difference-in-differences.html#cb6-14" aria-hidden="true" tabindex="-1"></a>              unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
-<span id="cb6-15"><a href="difference-in-differences.html#cb6-15" aria-hidden="true" tabindex="-1"></a>              state<span class="sc">:</span>year</span>
-<span id="cb6-16"><a href="difference-in-differences.html#cb6-16" aria-hidden="true" tabindex="-1"></a>              <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
-<span id="cb6-17"><a href="difference-in-differences.html#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="difference-in-differences.html#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_motor1,reg_motor2,reg_motor3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
-<span id="cb6-19"><a href="difference-in-differences.html#cb6-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
-<span id="cb6-20"><a href="difference-in-differences.html#cb6-20" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
+<div id="falsification-tests" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Falsification tests</h3>
+<p>Intuitively, we would think think that the passing of the Castle-doctrine law would mainly affect a state’s homicide rate or level of crimes related to physically harming others. Whereas we would expect crimes like motor vehicle left and larceny to remain constant through the passing and implementation of the law. To test this assumption do the following regression analyses:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="difference-in-differences.html#cb6-1" aria-hidden="true" tabindex="-1"></a>castle<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;castle.RDS&quot;</span>)</span>
+<span id="cb6-2"><a href="difference-in-differences.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb6-3"><a href="difference-in-differences.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-4"><a href="difference-in-differences.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE</span></span>
+<span id="cb6-5"><a href="difference-in-differences.html#cb6-5" aria-hidden="true" tabindex="-1"></a>reg_motor1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-6"><a href="difference-in-differences.html#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="difference-in-differences.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects</span></span>
+<span id="cb6-8"><a href="difference-in-differences.html#cb6-8" aria-hidden="true" tabindex="-1"></a>reg_motor2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-9"><a href="difference-in-differences.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="difference-in-differences.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## TWFE with Region-by-Year Fixed Effects, additional controls and State-Specific Linear Time trends</span></span>
+<span id="cb6-11"><a href="difference-in-differences.html#cb6-11" aria-hidden="true" tabindex="-1"></a>reg_motor3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_motor<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
+<span id="cb6-12"><a href="difference-in-differences.html#cb6-12" aria-hidden="true" tabindex="-1"></a>              whitem_25_44<span class="sc">+</span>l_exp_subsidy<span class="sc">+</span>l_exp_pubwelfare<span class="sc">+</span>l_police<span class="sc">+</span></span>
+<span id="cb6-13"><a href="difference-in-differences.html#cb6-13" aria-hidden="true" tabindex="-1"></a>              unemployrt<span class="sc">+</span>poverty<span class="sc">+</span>l_income<span class="sc">+</span>l_prisoner<span class="sc">+</span>l_lagprisoner<span class="sc">+</span></span>
+<span id="cb6-14"><a href="difference-in-differences.html#cb6-14" aria-hidden="true" tabindex="-1"></a>              state<span class="sc">:</span>year</span>
+<span id="cb6-15"><a href="difference-in-differences.html#cb6-15" aria-hidden="true" tabindex="-1"></a>              <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
+<span id="cb6-16"><a href="difference-in-differences.html#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="difference-in-differences.html#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_motor1,reg_motor2,reg_motor3,<span class="at">signif.code =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb6-18"><a href="difference-in-differences.html#cb6-18" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
+<span id="cb6-19"><a href="difference-in-differences.html#cb6-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
 <pre><code>##                        reg_motor1      reg_motor2         reg_motor3
 ## Dependent Var.:           l_motor         l_motor            l_motor
 ##                                                                     
@@ -567,12 +571,15 @@ State Population (used in the weighted regression)
 ## Fixed-Effects:   ---------------- --------------- ------------------
 ## state                         Yes             Yes                Yes
 ## year                          Yes             Yes                Yes
-## region^year                    No             Yes                Yes
+## region-year                    No             Yes                Yes
 ## ________________ ________________ _______________ __________________
 ## S.E.: Clustered         by: state       by: state          by: state
 ## Observations                  550             550                550
 ## R2                        0.95815         0.96851            0.98604
-## Within R2                 0.02611         0.00085            0.55696</code></pre>
+## Within R2                 0.02611         0.00085            0.55696
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.01 &#39;**&#39; 0.05 &#39;*&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Note: The first column only considers state and year FEs. The second column adds region-by-year fixed effects, and the third column adds time-varying covariates and state-specific trends. All regressions are weighted by state population.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="difference-in-differences.html#cb8-1" aria-hidden="true" tabindex="-1"></a>reg_lar1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb8-2"><a href="difference-in-differences.html#cb8-2" aria-hidden="true" tabindex="-1"></a>reg_lar2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb8-3"><a href="difference-in-differences.html#cb8-3" aria-hidden="true" tabindex="-1"></a>reg_lar3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_larceny<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -584,34 +591,38 @@ State Population (used in the weighted regression)
 <span id="cb8-9"><a href="difference-in-differences.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_lar1,reg_lar2,reg_lar3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
 <span id="cb8-10"><a href="difference-in-differences.html#cb8-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
 <span id="cb8-11"><a href="difference-in-differences.html#cb8-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
-<pre><code>##                         reg_lar1        reg_lar2          reg_lar3
-## Dependent Var.:        l_larceny       l_larceny         l_larceny
-##                                                                   
-## cdl              0.0075 (0.0227) 0.0015 (0.0208)  -0.0137 (0.0231)
-## blackm_15_24                                      -0.0489 (0.0368)
-## whitem_15_24                                      -0.0022 (0.0105)
-## blackm_25_44                                     0.0492** (0.0230)
-## whitem_25_44                                       0.0018 (0.0043)
-## l_exp_subsidy                                     -0.0056 (0.0144)
-## l_exp_pubwelfare                                   0.0485 (0.0318)
-## l_police                                          -0.0203 (0.0179)
-## unemployrt                                        -0.0010 (0.0061)
-## poverty                                            0.0033 (0.0073)
-## l_income                                           0.0076 (0.0738)
-## l_prisoner                                        -0.1146 (0.0780)
-## l_lagprisoner                                      0.0311 (0.0987)
-## Fixed-Effects:   --------------- --------------- -----------------
-## state                        Yes             Yes               Yes
-## year                         Yes             Yes               Yes
-## region^year                   No             Yes               Yes
-## ________________ _______________ _______________ _________________
-## S.E.: Clustered        by: state       by: state         by: state
-## Observations                 550             550               550
-## R2                       0.94217         0.96118           0.98078
-## Within R2                0.00096         3.97e-5           0.50489</code></pre>
+<pre><code>##                         reg_lar1        reg_lar2         reg_lar3
+## Dependent Var.:        l_larceny       l_larceny        l_larceny
+##                                                                  
+## cdl              0.0075 (0.0227) 0.0015 (0.0208) -0.0137 (0.0231)
+## blackm_15_24                                     -0.0489 (0.0368)
+## whitem_15_24                                     -0.0022 (0.0105)
+## blackm_25_44                                     0.0492* (0.0230)
+## whitem_25_44                                      0.0018 (0.0043)
+## l_exp_subsidy                                    -0.0056 (0.0144)
+## l_exp_pubwelfare                                  0.0485 (0.0318)
+## l_police                                         -0.0203 (0.0179)
+## unemployrt                                       -0.0010 (0.0061)
+## poverty                                           0.0033 (0.0073)
+## l_income                                          0.0076 (0.0738)
+## l_prisoner                                       -0.1146 (0.0780)
+## l_lagprisoner                                     0.0311 (0.0987)
+## Fixed-Effects:   --------------- --------------- ----------------
+## state                        Yes             Yes              Yes
+## year                         Yes             Yes              Yes
+## region-year                   No             Yes              Yes
+## ________________ _______________ _______________ ________________
+## S.E.: Clustered        by: state       by: state        by: state
+## Observations                 550             550              550
+## R2                       0.94217         0.96118          0.98078
+## Within R2                0.00096         3.97e-5          0.50489
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>From the above regression results we can see that regardless of the covariates we add, the affect the new law has on larceny and motor vehicle left is not statistically significant. This provides a well established baseline for our falsification tests.</p>
 </div>
-<div id="deterrence" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Deterrence</h3>
+<div id="deterrence" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Deterrence</h3>
+<p>Besides just testing if homicide rates change, we would also like to investigate if the Castle doctrine laws have a significant deterrent effect. In other words, if potential criminals know that their victims can legally shoot them in self-defense, does this knowledge decrease certain types of crime?</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="difference-in-differences.html#cb10-1" aria-hidden="true" tabindex="-1"></a>reg_rob1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb10-2"><a href="difference-in-differences.html#cb10-2" aria-hidden="true" tabindex="-1"></a>reg_rob2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb10-3"><a href="difference-in-differences.html#cb10-3" aria-hidden="true" tabindex="-1"></a>reg_rob3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_robbery<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -623,31 +634,33 @@ State Population (used in the weighted regression)
 <span id="cb10-9"><a href="difference-in-differences.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_rob1,reg_rob2,reg_rob3,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
 <span id="cb10-10"><a href="difference-in-differences.html#cb10-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
 <span id="cb10-11"><a href="difference-in-differences.html#cb10-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
-<pre><code>##                         reg_rob1        reg_rob2           reg_rob3
-## Dependent Var.:        l_robbery       l_robbery          l_robbery
-##                                                                    
-## cdl              0.0448 (0.0331) 0.0320 (0.0426)    0.0267 (0.0303)
-## blackm_15_24                                     -0.2014** (0.0845)
-## whitem_15_24                                        0.0103 (0.0230)
-## blackm_25_44                                      0.1625** (0.0735)
-## whitem_25_44                                       -0.0121 (0.0109)
-## l_exp_subsidy                                       0.0061 (0.0261)
-## l_exp_pubwelfare                                   -0.0798 (0.0718)
-## l_police                                            0.0132 (0.0305)
-## unemployrt                                         -0.0101 (0.0103)
-## poverty                                            -0.0095 (0.0116)
-## l_income                                            0.0391 (0.1221)
-## l_prisoner                                          0.0453 (0.1845)
-## l_lagprisoner                                     -0.3073* (0.1576)
-## Fixed-Effects:   --------------- --------------- ------------------
-## state                        Yes             Yes                Yes
-## year                         Yes             Yes                Yes
-## region^year                   No             Yes                Yes
-## ________________ _______________ _______________ __________________
-## S.E.: Clustered        by: state       by: state          by: state
-## Observations                 550             550                550
-## R2                       0.98516         0.98620            0.99273
-## Within R2                0.01156         0.00467            0.47609</code></pre>
+<pre><code>##                         reg_rob1        reg_rob2          reg_rob3
+## Dependent Var.:        l_robbery       l_robbery         l_robbery
+##                                                                   
+## cdl              0.0448 (0.0331) 0.0320 (0.0426)   0.0267 (0.0303)
+## blackm_15_24                                     -0.2014* (0.0845)
+## whitem_15_24                                       0.0103 (0.0230)
+## blackm_25_44                                      0.1625* (0.0735)
+## whitem_25_44                                      -0.0121 (0.0109)
+## l_exp_subsidy                                      0.0061 (0.0261)
+## l_exp_pubwelfare                                  -0.0798 (0.0718)
+## l_police                                           0.0132 (0.0305)
+## unemployrt                                        -0.0101 (0.0103)
+## poverty                                           -0.0095 (0.0116)
+## l_income                                           0.0391 (0.1221)
+## l_prisoner                                         0.0453 (0.1845)
+## l_lagprisoner                                    -0.3073. (0.1576)
+## Fixed-Effects:   --------------- --------------- -----------------
+## state                        Yes             Yes               Yes
+## year                         Yes             Yes               Yes
+## region-year                   No             Yes               Yes
+## ________________ _______________ _______________ _________________
+## S.E.: Clustered        by: state       by: state         by: state
+## Observations                 550             550               550
+## R2                       0.98516         0.98620           0.99273
+## Within R2                0.01156         0.00467           0.47609
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="difference-in-differences.html#cb12-1" aria-hidden="true" tabindex="-1"></a>reg_aslt1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb12-2"><a href="difference-in-differences.html#cb12-2" aria-hidden="true" tabindex="-1"></a>reg_aslt2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb12-3"><a href="difference-in-differences.html#cb12-3" aria-hidden="true" tabindex="-1"></a>reg_aslt3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_assault<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -678,15 +691,20 @@ State Population (used in the weighted regression)
 ## Fixed-Effects:   --------------- --------------- ------------------
 ## state                        Yes             Yes                Yes
 ## year                         Yes             Yes                Yes
-## region^year                   No             Yes                Yes
+## region-year                   No             Yes                Yes
 ## ________________ _______________ _______________ __________________
 ## S.E.: Clustered        by: state       by: state          by: state
 ## Observations                 550             550                550
 ## R2                       0.94615         0.95273            0.98960
-## Within R2                0.01076         0.01415            0.78305</code></pre>
+## Within R2                0.01076         0.01415            0.78305
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>From these regression results we can conclude there is no effect on robbery or aggravated assault and burglary. As the results are statistically insignificant, we do not find a deterrent effect from the passing and implementation of Castle-doctrine laws.</p>
 </div>
-<div id="homicide-in-florida" class="section level3" number="7.2.3">
-<h3><span class="header-section-number">7.2.3</span> Homicide in Florida</h3>
+<div id="homicide-in-florida" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Homicide in Florida</h3>
+<p>Before doing multistate homicide regression analysis, we can specifically look at the state of Florida to get an idea of the affect the Castle-Doctrine laws had on homicide rates.</p>
+<p>To best do this, lets visualization homicide rates in Florida compared to a control group containing all states who did not pass a similar Castle-doctrine law between 2000 to 2010.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="difference-in-differences.html#cb14-1" aria-hidden="true" tabindex="-1"></a>florida<span class="ot">&lt;-</span>castle<span class="sc">%&gt;%</span><span class="fu">filter</span>(state<span class="sc">==</span><span class="st">&quot;Florida&quot;</span><span class="sc">|</span>treated<span class="sc">==</span><span class="dv">0</span>)</span>
 <span id="cb14-2"><a href="difference-in-differences.html#cb14-2" aria-hidden="true" tabindex="-1"></a>florida<span class="ot">&lt;-</span>florida<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">treat=</span><span class="fu">ifelse</span>(state<span class="sc">==</span><span class="st">&quot;Florida&quot;</span>,<span class="st">&quot;Florida&quot;</span>,<span class="st">&quot;Control Group&quot;</span>))</span>
 <span id="cb14-3"><a href="difference-in-differences.html#cb14-3" aria-hidden="true" tabindex="-1"></a>plot<span class="ot">&lt;-</span>florida<span class="sc">%&gt;%</span><span class="fu">group_by</span>(treat, year)<span class="sc">%&gt;%</span><span class="fu">summarize</span>(<span class="at">Homicide=</span><span class="fu">mean</span>(l_homicide))</span>
@@ -703,7 +721,8 @@ State Population (used in the weighted regression)
 <span id="cb14-14"><a href="difference-in-differences.html#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2003</span>, <span class="dv">2005</span>, <span class="dv">2008</span>, <span class="dv">2010</span>))<span class="sc">+</span></span>
 <span id="cb14-15"><a href="difference-in-differences.html#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
 <span id="cb14-16"><a href="difference-in-differences.html#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="images/plot4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/plot4-1.png" width="100%" style="display: block; margin: auto;" />
+As shown in the graph, Florida starts with a higher average homicide rate than the control group, which decreases slightly (could be an issue with common trends). The homicide rate than increases substantially the years following 2005, then begins to return to its previous level around 2009. Whereas the control group’s homicide rate only decreases post 2005.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="difference-in-differences.html#cb15-1" aria-hidden="true" tabindex="-1"></a>reg_homic1_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
 <span id="cb15-2"><a href="difference-in-differences.html#cb15-2" aria-hidden="true" tabindex="-1"></a>reg_homic2_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
 <span id="cb15-3"><a href="difference-in-differences.html#cb15-3" aria-hidden="true" tabindex="-1"></a>reg_homic3_fl<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -712,7 +731,7 @@ State Population (used in the weighted regression)
 <span id="cb15-6"><a href="difference-in-differences.html#cb15-6" aria-hidden="true" tabindex="-1"></a>                  state<span class="sc">:</span>year</span>
 <span id="cb15-7"><a href="difference-in-differences.html#cb15-7" aria-hidden="true" tabindex="-1"></a>                <span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
 <span id="cb15-8"><a href="difference-in-differences.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="difference-in-differences.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,<span class="at">signifCode =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
+<span id="cb15-9"><a href="difference-in-differences.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(reg_homic1_fl,reg_homic2_fl,reg_homic3_fl,<span class="at">signif.code =</span> <span class="fu">c</span>(<span class="st">&quot;***&quot;</span><span class="ot">=</span><span class="fl">0.01</span>, <span class="st">&quot;**&quot;</span><span class="ot">=</span><span class="fl">0.05</span>, <span class="st">&quot;*&quot;</span><span class="ot">=</span><span class="fl">0.10</span>),   <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
 <span id="cb15-10"><a href="difference-in-differences.html#cb15-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
 <span id="cb15-11"><a href="difference-in-differences.html#cb15-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
 <pre><code>##                       reg_homic1_fl   reg_homic2_fl       reg_homic3_fl
@@ -734,18 +753,23 @@ State Population (used in the weighted regression)
 ## Fixed-Effects:   ------------------ --------------- -------------------
 ## state                           Yes             Yes                 Yes
 ## year                            Yes             Yes                 Yes
-## region^year                      No             Yes                 Yes
+## region-year                      No             Yes                 Yes
 ## ________________ __________________ _______________ ___________________
 ## S.E.: Clustered           by: state       by: state           by: state
 ## Observations                    330             330                 330
 ## R2                          0.91563         0.92657             0.95739
-## Within R2                   0.00515         0.00057             0.42002</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="difference-in-differences.html#cb17-1" aria-hidden="true" tabindex="-1"></a>florida_plot <span class="ot">=</span> <span class="fu">feols</span>(l_homicide<span class="sc">~</span><span class="fu">i</span>(treated, year, <span class="dv">2004</span>)<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
-<span id="cb17-2"><a href="difference-in-differences.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(florida_plot)</span></code></pre></div>
-<p><img src="images/plot5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+## Within R2                   0.00515         0.00057             0.42002
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.01 &#39;**&#39; 0.05 &#39;*&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>To put numbers to our visualization we run a regression like we have before. A large but only slightly significant affect on homicide rate can be found after adding all our covariates.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="difference-in-differences.html#cb17-1" aria-hidden="true" tabindex="-1"></a>florida_plot <span class="ot">=</span> <span class="fu">feols</span>(l_homicide<span class="sc">~</span><span class="fu">i</span>(year, treated, <span class="at">ref=</span><span class="dv">2004</span>)<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>florida)</span>
+<span id="cb17-2"><a href="difference-in-differences.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#coefplot(florida_plot)</span></span>
+<span id="cb17-3"><a href="difference-in-differences.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(florida_plot, <span class="at">main=</span><span class="st">&quot;Effect of Castle Doctrine on Homicide rates in Florida&quot;</span>)</span></code></pre></div>
+<p><img src="images/plot5-1.png" width="100%" style="display: block; margin: auto;" />
+The above graph plots confidence intervals alongside the point estimates that we had found for each year. By doing this, we get a better understanding of how confident we in the affect Castle-doctrine laws have on each years homicide rates. In this case, all years post 2005 have a statistically significant increase as all of the confidence intervals do not include zero.</p>
 </div>
-<div id="multistate-homicide-regression" class="section level3" number="7.2.4">
-<h3><span class="header-section-number">7.2.4</span> Multistate Homicide Regression</h3>
+<div id="multistate-homicide-regression" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Multistate Homicide Regression</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="difference-in-differences.html#cb18-1" aria-hidden="true" tabindex="-1"></a>reg_homic1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb18-2"><a href="difference-in-differences.html#cb18-2" aria-hidden="true" tabindex="-1"></a>reg_homic2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb18-3"><a href="difference-in-differences.html#cb18-3" aria-hidden="true" tabindex="-1"></a>reg_homic3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -758,31 +782,34 @@ State Population (used in the weighted regression)
 <span id="cb18-10"><a href="difference-in-differences.html#cb18-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
 <span id="cb18-11"><a href="difference-in-differences.html#cb18-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
 <span id="cb18-12"><a href="difference-in-differences.html#cb18-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
-<pre><code>##                       reg_homic1      reg_homic2          reg_homic3
-## Dependent Var.:       l_homicide      l_homicide          l_homicide
-##                                                                     
-## cdl              0.0877 (0.0638) 0.0811 (0.0779)     0.0672 (0.0457)
-## blackm_15_24                                         0.0984 (0.1269)
-## whitem_15_24                                        0.0676* (0.0401)
-## blackm_25_44                                         0.1195 (0.1358)
-## whitem_25_44                                     -0.0375*** (0.0133)
-## l_exp_subsidy                                       -0.0686 (0.0595)
-## l_exp_pubwelfare                                     0.0645 (0.1059)
-## l_police                                           0.1465** (0.0643)
-## unemployrt                                           0.0196 (0.0189)
-## poverty                                           -0.0488** (0.0222)
-## l_income                                          -0.5859** (0.2803)
-## l_prisoner                                          -0.1407 (0.3372)
-## l_lagprisoner                                       -0.2033 (0.3975)
-## Fixed-Effects:   --------------- --------------- -------------------
-## state                        Yes             Yes                 Yes
-## year                         Yes             Yes                 Yes
-## region^year                   No             Yes                 Yes
-## ________________ _______________ _______________ ___________________
-## S.E.: Clustered        by: state       by: state           by: state
-## Observations                 550             550                 550
-## R2                       0.91055         0.91527             0.95323
-## Within R2                0.01308         0.00869             0.45273</code></pre>
+<pre><code>##                       reg_homic1      reg_homic2         reg_homic3
+## Dependent Var.:       l_homicide      l_homicide         l_homicide
+##                                                                    
+## cdl              0.0877 (0.0638) 0.0811 (0.0779)    0.0672 (0.0457)
+## blackm_15_24                                        0.0984 (0.1269)
+## whitem_15_24                                       0.0676. (0.0401)
+## blackm_25_44                                        0.1195 (0.1358)
+## whitem_25_44                                     -0.0375** (0.0133)
+## l_exp_subsidy                                      -0.0686 (0.0595)
+## l_exp_pubwelfare                                    0.0645 (0.1059)
+## l_police                                           0.1465* (0.0643)
+## unemployrt                                          0.0196 (0.0189)
+## poverty                                           -0.0488* (0.0222)
+## l_income                                          -0.5859* (0.2803)
+## l_prisoner                                         -0.1407 (0.3372)
+## l_lagprisoner                                      -0.2033 (0.3975)
+## Fixed-Effects:   --------------- --------------- ------------------
+## state                        Yes             Yes                Yes
+## year                         Yes             Yes                Yes
+## region-year                   No             Yes                Yes
+## ________________ _______________ _______________ __________________
+## S.E.: Clustered        by: state       by: state          by: state
+## Observations                 550             550                550
+## R2                       0.91055         0.91527            0.95323
+## Within R2                0.01308         0.00869            0.45273
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Finally, we can run a multistate homicide regression. Looking at the results of this regression we see the coefficient on <em>cdl</em> is not statistically significant. Therefore, we would think the Castle-doctrine would have no affect on homicide rates… However, we can add further complexity to the model to ensure are results are more accurate.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="difference-in-differences.html#cb20-1" aria-hidden="true" tabindex="-1"></a>reg_homic1<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year, <span class="at">cluster=</span><span class="sc">~</span>state,<span class="at">weights=</span>castle<span class="sc">$</span>popwt, <span class="at">data=</span>castle)</span>
 <span id="cb20-2"><a href="difference-in-differences.html#cb20-2" aria-hidden="true" tabindex="-1"></a>reg_homic2<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">|</span>state<span class="sc">+</span>year<span class="sc">+</span>region<span class="sc">^</span>year, <span class="at">weights=</span>castle<span class="sc">$</span>popwt, <span class="at">cluster=</span><span class="sc">~</span>state, <span class="at">data=</span>castle)</span>
 <span id="cb20-3"><a href="difference-in-differences.html#cb20-3" aria-hidden="true" tabindex="-1"></a>reg_homic3<span class="ot">&lt;-</span><span class="fu">feols</span>(l_homicide<span class="sc">~</span>cdl<span class="sc">+</span>blackm_15_24<span class="sc">+</span>whitem_15_24<span class="sc">+</span>blackm_25_44<span class="sc">+</span></span>
@@ -795,31 +822,38 @@ State Population (used in the weighted regression)
 <span id="cb20-10"><a href="difference-in-differences.html#cb20-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">keep=</span><span class="fu">c</span>(<span class="st">&quot;cdl&quot;</span>,<span class="st">&quot;blackm_15_24&quot;</span>,<span class="st">&quot;whitem_15_24&quot;</span>,<span class="st">&quot;blackm_25_44&quot;</span>,</span>
 <span id="cb20-11"><a href="difference-in-differences.html#cb20-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;whitem_25_44&quot;</span>,<span class="st">&quot;l_exp_subsidy&quot;</span>,<span class="st">&quot;l_exp_pubwelfare&quot;</span>,<span class="st">&quot;l_police&quot;</span>,</span>
 <span id="cb20-12"><a href="difference-in-differences.html#cb20-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;unemployrt&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;l_income&quot;</span>,<span class="st">&quot;l_prisoner&quot;</span>,<span class="st">&quot;l_lagprisoner&quot;</span>))</span></code></pre></div>
-<pre><code>##                         reg_homic1         reg_homic2         reg_homic3
-## Dependent Var.:         l_homicide         l_homicide         l_homicide
-##                                                                         
-## cdl              0.0801** (0.0342) 0.0946*** (0.0282)  0.1004** (0.0395)
-## blackm_15_24                                             0.0613 (0.1089)
-## whitem_15_24                                             0.0375 (0.0274)
-## blackm_25_44                                            0.2302* (0.1263)
-## whitem_25_44                                          -0.0283** (0.0120)
-## l_exp_subsidy                                           -0.0429 (0.0395)
-## l_exp_pubwelfare                                         0.0494 (0.0644)
-## l_police                                               0.1291** (0.0500)
-## unemployrt                                               0.0142 (0.0121)
-## poverty                                                 -0.0180 (0.0128)
-## l_income                                               -0.3152* (0.1643)
-## l_prisoner                                              -0.1367 (0.1953)
-## l_lagprisoner                                           -0.4096 (0.2566)
-## Fixed-Effects:   ----------------- ------------------ ------------------
-## state                          Yes                Yes                Yes
-## year                           Yes                Yes                Yes
-## region^year                     No                Yes                Yes
-## ________________ _________________ __________________ __________________
-## S.E.: Clustered          by: state          by: state          by: state
-## Observations                   550                550                550
-## R2                         0.93417            0.94109            0.96239
-## Within R2                  0.03018            0.03020            0.38079</code></pre>
+<pre><code>##                        reg_homic1        reg_homic2        reg_homic3
+## Dependent Var.:        l_homicide        l_homicide        l_homicide
+##                                                                      
+## cdl              0.0801* (0.0342) 0.0946** (0.0282)  0.1004* (0.0395)
+## blackm_15_24                                          0.0613 (0.1089)
+## whitem_15_24                                          0.0375 (0.0274)
+## blackm_25_44                                         0.2302. (0.1263)
+## whitem_25_44                                        -0.0283* (0.0120)
+## l_exp_subsidy                                        -0.0429 (0.0395)
+## l_exp_pubwelfare                                      0.0494 (0.0644)
+## l_police                                             0.1291* (0.0500)
+## unemployrt                                            0.0142 (0.0121)
+## poverty                                              -0.0180 (0.0128)
+## l_income                                            -0.3152. (0.1643)
+## l_prisoner                                           -0.1367 (0.1953)
+## l_lagprisoner                                        -0.4096 (0.2566)
+## Fixed-Effects:   ---------------- ----------------- -----------------
+## state                         Yes               Yes               Yes
+## year                          Yes               Yes               Yes
+## region-year                    No               Yes               Yes
+## ________________ ________________ _________________ _________________
+## S.E.: Clustered         by: state         by: state         by: state
+## Observations                  550               550               550
+## R2                        0.93417           0.94109           0.96239
+## Within R2                 0.03018           0.03020           0.38079
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The above regression adds weights to the regression to account for state population differences. After adding this aspect, we find a statistically significant impact on the increase in homicide rates coming from self defense laws. These results are significant regardless of the covariates that get added, but as the covariate count increases we see a larger impact on our outcome variable <em>cdl</em>.</p>
+</div>
+<div id="multistate-event-study" class="section level3" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> Multistate Event-Study</h3>
+<p>TBD</p>
 
 </div>
 </div>
